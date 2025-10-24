@@ -1,0 +1,1773 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil Futurista - Octoweb 5.0</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+      background: radial-gradient(circle at center, #020024 0%, #090979 40%, #00d4ff 100%);
+      color: #fff;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    body.theme-ocean {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    body.theme-forest {
+      background: linear-gradient(135deg, #134e4a 0%, #047857 50%, #10b981 100%);
+    }
+
+    body.theme-sunset {
+      background: linear-gradient(135deg, #7c2d12 0%, #ea580c 50%, #fb923c 100%);
+    }
+
+    body.theme-night {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+    }
+
+    .container {
+      text-align: center;
+      width: 100%;
+      max-width: 600px;
+      padding: 20px;
+    }
+
+    .avatar-container {
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .avatar {
+      position: relative;
+      display: inline-block;
+      border-radius: 50%;
+      border: 5px solid #00ffcc;
+      padding: 10px;
+      box-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    .avatar:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px rgba(0, 255, 204, 1);
+    }
+
+    .avatar-img {
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4em;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 255, 204, 0.4);
+      border-radius: 50%;
+      transition: opacity 0.3s ease;
+      opacity: 0;
+    }
+
+    .avatar:hover .overlay {
+      opacity: 0.6;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #00ffcc;
+      margin-top: 20px;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: #aaa;
+      margin-top: 5px;
+    }
+
+    .interaction {
+      margin-top: 30px;
+    }
+
+    .interaction button {
+      background: linear-gradient(45deg, #00ffcc, #00ccff);
+      color: #fff;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 50px;
+      font-size: 1rem;
+      margin: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 255, 204, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .interaction button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0, 255, 204, 0.4);
+    }
+
+    .habilidades {
+      margin-top: 50px;
+      background: rgba(0, 255, 204, 0.1);
+      padding: 20px;
+      border-radius: 15px;
+    }
+
+    .habilidades h2 {
+      color: #00ffcc;
+      margin-bottom: 20px;
+    }
+
+    ul {
+      list-style-type: none;
+    }
+
+    ul li {
+      color: #ddd;
+      margin-bottom: 10px;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.95);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-content {
+      background: linear-gradient(180deg, #136436, #2d6a4f);
+      padding: 30px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 900px;
+      text-align: center;
+      border: 3px solid #4CAF50;
+      box-shadow: 0 0 30px rgba(76, 175, 80, 0.5);
+      margin: auto;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-content h3 {
+      color: #4CAF50;
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .close-btn {
+      background-color: #ff4e50;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 50px;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+    }
+
+    .close-btn:hover {
+      background-color: #ff2d38;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 10px rgba(255, 78, 80, 0.4);
+    }
+
+    .game-screen {
+      display: none;
+    }
+
+    .game-screen.active {
+      display: block;
+      animation: fadeIn 0.5s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .game-btn {
+      padding: 15px;
+      font-size: 1.1em;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: bold;
+      color: white;
+    }
+
+    .game-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .btn-easy {
+      background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+      color: #2d3748 !important;
+    }
+
+    .btn-medium {
+      background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+      color: #2d3748 !important;
+    }
+
+    .btn-hard {
+      background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
+    }
+
+    .mode-card {
+      background: linear-gradient(135deg, #f6f9fc, #e9f2f9);
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: 3px solid transparent;
+      margin: 10px;
+    }
+
+    .mode-card:hover {
+      transform: scale(1.05);
+      border-color: #2ecc71;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .mode-card h3 {
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+
+    .mode-card .emoji {
+      font-size: 3em;
+      margin-bottom: 10px;
+    }
+
+    .mode-card .info {
+      color: #7f8c8d;
+      font-size: 0.9em;
+    }
+
+    .hud {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .hud-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+
+    .hearts {
+      display: flex;
+      gap: 5px;
+    }
+
+    .heart {
+      color: #e74c3c;
+      font-size: 1.5em;
+    }
+
+    .game-area {
+      position: relative;
+      height: 400px;
+      background: linear-gradient(180deg, #87ceeb 0%, #e0f6ff 100%);
+      border-radius: 15px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .falling-item {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      font-size: 2.5em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+
+    .falling-item:hover {
+      transform: scale(1.1);
+    }
+
+    .bins-container {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px;
+      background: rgba(255,255,255,0.9);
+      flex-wrap: wrap;
+    }
+
+    .bin {
+      width: 70px;
+      height: 90px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 1.8em;
+      border: 3px solid transparent;
+      margin: 5px;
+    }
+
+    .bin:hover {
+      transform: translateY(-10px);
+      border-color: #2c3e50;
+    }
+
+    .bin.highlight {
+      animation: pulse 0.5s;
+      border-color: #f1c40f;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .bin-label {
+      font-size: 0.4em;
+      margin-top: 5px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 30px;
+      background: #ecf0f1;
+      border-radius: 15px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #2ecc71, #27ae60);
+      width: 0%;
+      transition: width 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+    }
+
+    .character-select {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .character-card {
+      background: linear-gradient(135deg, #fff, #f0f0f0);
+      padding: 15px;
+      border-radius: 15px;
+      text-align: center;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: all 0.3s;
+    }
+
+    .character-card:hover {
+      transform: scale(1.05);
+      border-color: #9b59b6;
+    }
+
+    .character-card.selected {
+      border-color: #2ecc71;
+      background: linear-gradient(135deg, #d4edda, #c3e6cb);
+    }
+
+    .character-avatar {
+      font-size: 3em;
+      margin-bottom: 10px;
+    }
+
+    .character-card h4 {
+      color: #2c3e50;
+      font-size: 0.9em;
+      margin-bottom: 5px;
+    }
+
+    .character-card p {
+      font-size: 0.75em;
+      color: #7f8c8d;
+    }
+
+    .combo-indicator {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3em;
+      color: #f1c40f;
+      font-weight: bold;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      animation: comboAnim 1s;
+      pointer-events: none;
+    }
+
+    @keyframes comboAnim {
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+      100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+    }
+
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .shop-item {
+      background: linear-gradient(135deg, #f6f9fc, #e9f2f9);
+      padding: 15px;
+      border-radius: 15px;
+      text-align: center;
+      border: 3px solid transparent;
+      transition: all 0.3s;
+    }
+
+    .shop-item:hover:not(.owned) {
+      transform: translateY(-5px);
+      border-color: #3498db;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      cursor: pointer;
+    }
+
+    .shop-item .icon {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+
+    .shop-item h4 {
+      color: #2c3e50;
+      font-size: 0.95em;
+      margin-bottom: 8px;
+    }
+
+    .shop-item p {
+      font-size: 0.8em;
+      color: #7f8c8d;
+      margin-bottom: 10px;
+    }
+
+    .shop-item .price {
+      color: #f39c12;
+      font-weight: bold;
+      margin: 10px 0;
+      font-size: 0.9em;
+    }
+
+    .shop-item.owned {
+      opacity: 0.6;
+      background: linear-gradient(135deg, #d4edda, #c3e6cb);
+      border-color: #2ecc71;
+    }
+
+    .leaderboard-list {
+      margin-top: 20px;
+    }
+
+    .leaderboard-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      background: rgba(255,255,255,0.1);
+      margin-bottom: 10px;
+      border-radius: 10px;
+      transition: all 0.3s;
+    }
+
+    .leaderboard-item:hover {
+      transform: translateX(10px);
+      background: rgba(255,255,255,0.2);
+    }
+
+    .leaderboard-rank {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #f39c12;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .mt-3 {
+      margin-top: 30px;
+    }
+
+    .energy {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #00ffff;
+      border-radius: 50%;
+      animation: float 8s infinite ease-in-out;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 0.5; }
+      50% { transform: translateY(-40px) scale(1.5); opacity: 1; }
+      100% { transform: translateY(0); opacity: 0.5; }
+    }
+
+    /* Estilos para Tela de Descanso */
+    .screensaver {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #0a0a0a;
+      z-index: 99999;
+      display: none;
+    }
+
+    .screensaver.active {
+      display: block;
+    }
+
+    .screensaver .ball {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: #ff00ff;
+      box-shadow: 
+        0 0 20px #ff00ff,
+        0 0 40px #ff00ff,
+        0 0 60px #ff00ff,
+        0 0 80px #ff00ff,
+        0 0 100px #ff00ff,
+        inset 0 0 20px rgba(255, 255, 255, 0.5);
+      animation: ballPulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes ballPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .screensaver .trail {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .screensaver .time {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #00ffff;
+      font-size: 120px;
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+      pointer-events: none;
+      text-shadow: 
+        0 0 10px #00ffff,
+        0 0 20px #00ffff,
+        0 0 30px #00ffff,
+        0 0 40px #00ffff,
+        0 0 70px #00ffff,
+        0 0 80px #00ffff;
+      opacity: 0.3;
+    }
+
+    .screensaver .grid {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+    }
+
+    @media (max-width: 600px) {
+      .bins-container {
+        flex-wrap: wrap;
+      }
+      .bin {
+        width: 60px;
+        height: 80px;
+        font-size: 1.5em;
+      }
+      .shop-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      }
+      .screensaver .time {
+        font-size: 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="avatar-container">
+      <div class="avatar">
+        <div class="avatar-img">🤖</div>
+        <div class="overlay"></div>
+      </div>
+      <h1>Octoweb 5.0</h1>
+      <p class="subtitle">Desenvolvedor Full-stack | Criador de Soluções</p>
+    </div>
+
+    <div class="interaction">
+      <button id="btnJogo">🌿 Troque & Economize</button>
+      <button id="btnPortfolio">🎧 Música Futurista</button>
+      <button id="btnScreensaver">✨ Tela de Descanso</button>
+    </div>
+
+    <div class="habilidades">
+      <h2>Habilidades Futuristas</h2>
+      <ul>
+        <li>React.js</li>
+        <li>Python (AI/ML)</li>
+        <li>Blockchain</li>
+        <li>Desenvolvimento de Web3</li>
+      </ul>
+    </div>
+
+    <!-- Modal do Jogo -->
+    <div class="modal" id="modalJogo">
+      <div class="modal-content">
+        <!-- Menu Inicial -->
+        <div id="menuScreen" class="game-screen active">
+          <h3>♻️ TROQUE ECONOMIZE</h3>
+          <p style="color: #ddd; margin-bottom: 20px;">Aprenda a reciclar e salve o planeta!</p>
+          
+          <div style="margin: 30px 0;">
+            <button class="game-btn" style="background: linear-gradient(45deg, #2ecc71, #27ae60);" onclick="showGameScreen('characterScreen')">🎮 JOGAR</button>
+            <button class="game-btn" style="background: linear-gradient(45deg, #3498db, #2980b9); margin-top: 10px;" onclick="showGameScreen('shopScreen')">🛒 LOJA</button>
+            <button class="game-btn" style="background: linear-gradient(45deg, #f39c12, #e67e22); margin-top: 10px;" onclick="showGameScreen('leaderboardScreen')">🏆 RANKING</button>
+            <button class="game-btn" style="background: linear-gradient(45deg, #9b59b6, #8e44ad); margin-top: 10px;" id="soundToggle" onclick="toggleSound()">🔊 SOM</button>
+          </div>
+
+          <div class="hud-item" style="justify-content: center; font-size: 1.2em;">
+            <span>💰 Moedas: <span id="menuCoins">0</span></span>
+          </div>
+        </div>
+
+        <!-- Seleção de Personagem -->
+        <div id="characterScreen" class="game-screen">
+          <h3 style="color: #2c3e50; margin-bottom: 20px;">Escolha seu Eco-Guerreiro!</h3>
+          
+          <div class="character-select" id="characterSelect"></div>
+
+          <div class="text-center mt-3">
+            <button class="game-btn" style="background: linear-gradient(45deg, #2ecc71, #27ae60);" onclick="showGameScreen('modeScreen')">CONTINUAR ➡️</button>
+            <button class="game-btn" style="background: linear-gradient(45deg, #3498db, #2980b9); margin-top: 10px;" onclick="showGameScreen('menuScreen')">⬅️ VOLTAR</button>
+          </div>
+        </div>
+
+        <!-- Seleção de Modo -->
+        <div id="modeScreen" class="game-screen">
+          <h3 style="color: #2c3e50; margin-bottom: 30px;">Escolha o Modo</h3>
+          
+          <div class="mode-card" onclick="startGame('facil')">
+            <div class="emoji">🌱</div>
+            <h3>FÁCIL</h3>
+            <div class="info">
+              6 rodadas<br>
+              15 segundos cada<br>
+              Velocidade: Lenta
+            </div>
+          </div>
+
+          <div class="mode-card" onclick="startGame('medio')">
+            <div class="emoji">🌳</div>
+            <h3>MÉDIO</h3>
+            <div class="info">
+              10 rodadas<br>
+              10 segundos cada<br>
+              Velocidade: Normal
+            </div>
+          </div>
+
+          <div class="mode-card" onclick="startGame('dificil')">
+            <div class="emoji">🔥</div>
+            <h3>DIFÍCIL</h3>
+            <div class="info">
+              10 rodadas<br>
+              8 segundos cada<br>
+              Velocidade: Rápida
+            </div>
+          </div>
+
+          <div class="text-center">
+            <button class="game-btn" style="background: linear-gradient(45deg, #3498db, #2980b9); margin-top: 10px;" onclick="showGameScreen('characterScreen')">⬅️ VOLTAR</button>
+          </div>
+        </div>
+
+        <!-- Tela de Jogo -->
+        <div id="gameScreen" class="game-screen">
+          <div class="hud">
+            <div class="hud-item">
+              <span>❤️ Vidas:</span>
+              <div class="hearts" id="hearts"></div>
+            </div>
+            <div class="hud-item">
+              <span>⏱️ <span id="timer">15</span>s</span>
+            </div>
+            <div class="hud-item">
+              <span>🎯 Rodada: <span id="round">1</span>/<span id="totalRounds">6</span></span>
+            </div>
+            <div class="hud-item">
+              <span>💰 <span id="coins">0</span></span>
+            </div>
+            <div class="hud-item">
+              <span>🔥 Combo: x<span id="combo">1</span></span>
+            </div>
+          </div>
+
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressBar">0%</div>
+          </div>
+
+          <div class="game-area" id="gameArea">
+            <div class="bins-container" id="binsContainer"></div>
+          </div>
+        </div>
+
+        <!-- Loja -->
+        <div id="shopScreen" class="game-screen">
+          <h3 style="color: #2c3e50; margin-bottom: 20px;">🛒 Loja Eco</h3>
+          
+          <div class="hud-item" style="justify-content: center; font-size: 1.3em; margin-bottom: 20px;">
+            <span style="color: #fff;">💰 Suas Moedas: <span id="shopCoins">0</span></span>
+          </div>
+
+          <div class="shop-grid" id="shopGrid"></div>
+
+          <div class="text-center mt-3">
+            <button class="game-btn" style="background: linear-gradient(45deg, #3498db, #2980b9);" onclick="showGameScreen('menuScreen')">⬅️ VOLTAR</button>
+          </div>
+        </div>
+
+        <!-- Ranking -->
+        <div id="leaderboardScreen" class="game-screen">
+          <h3 style="color: #fff; margin-bottom: 20px;">🏆 Ranking Semanal</h3>
+          
+          <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+            <button class="game-btn" style="padding: 10px 15px; font-size: 0.9em; background: linear-gradient(45deg, #2ecc71, #27ae60);" onclick="showLeaderboard('facil')" id="leaderboardFacil">🌱 FÁCIL</button>
+            <button class="game-btn" style="padding: 10px 15px; font-size: 0.9em; background: linear-gradient(45deg, #3498db, #2980b9);" onclick="showLeaderboard('medio')" id="leaderboardMedio">🌳 MÉDIO</button>
+            <button class="game-btn" style="padding: 10px 15px; font-size: 0.9em; background: linear-gradient(45deg, #e74c3c, #c0392b);" onclick="showLeaderboard('dificil')" id="leaderboardDificil">🔥 DIFÍCIL</button>
+            <button class="game-btn" style="padding: 10px 15px; font-size: 0.9em; background: linear-gradient(45deg, #f39c12, #e67e22);" onclick="showLeaderboard('todos')" id="leaderboardTodos">⭐ TODOS</button>
+          </div>
+
+          <div style="text-align: center; margin-bottom: 15px;">
+            <span style="font-size: 1.1em; color: #fff; font-weight: bold;" id="leaderboardModeTitle">Modo: FÁCIL</span>
+          </div>
+
+          <div class="leaderboard-list" id="leaderboardList"></div>
+
+          <div class="text-center mt-3">
+            <button class="game-btn" style="background: linear-gradient(45deg, #e74c3c, #c0392b); font-size: 0.9em;" onclick="clearLeaderboard()">🗑️ LIMPAR RANKING</button>
+            <button class="game-btn" style="background: linear-gradient(45deg, #3498db, #2980b9); margin-top: 10px;" onclick="showGameScreen('menuScreen')">⬅️ VOLTAR</button>
+          </div>
+        </div>
+
+        <!-- Game Over -->
+        <div id="gameOverScreen" class="game-screen">
+          <h3 id="gameOverTitle" style="color: #2c3e50; margin-bottom: 20px;">Game Over!</h3>
+          
+          <div style="text-align: center; font-size: 1.5em; margin: 30px 0;">
+            <div style="color: #fff;">🎯 Pontuação Final: <span id="finalScore" style="color: #f39c12; font-weight: bold;">0</span></div>
+            <div style="margin-top: 15px; color: #fff;">💰 Moedas Ganhas: <span id="coinsEarned" style="color: #2ecc71; font-weight: bold;">0</span></div>
+            <div style="margin-top: 15px;" id="rankingMessage"></div>
+          </div>
+
+          <div class="text-center">
+            <button class="game-btn" style="background: linear-gradient(45deg, #2ecc71, #27ae60);" onclick="showGameScreen('modeScreen')">🔄 JOGAR NOVAMENTE</button>
+            <button class="game-btn" style="background: linear-gradient(45deg, #3498db, #2980b9); margin-top: 10px;" onclick="showGameScreen('menuScreen')">🏠 MENU</button>
+          </div>
+        </div>
+
+        <button class="close-btn" id="closeJogo">Fechar</button>
+      </div>
+    </div>
+
+    <!-- Modal de Música -->
+    <div class="modal" id="modalPortfolio">
+      <div class="modal-content" style="background: #1a1a2e; border-color: #00ffcc;">
+        <h3 style="color: #00ffcc;">🎧 Trilha Futurista</h3>
+       <div class="music-container">
+          <p style="color: #aaa; margin: 20px 0;">
+            Curta uma vibe enquanto explora o perfil!
+          </p>
+          <div style="background: rgba(0, 255, 255, 0.1); border: 2px solid #00ffff; box-shadow: 0 0 25px #00ffffaa; border-radius: 20px; padding: 20px; margin: 20px 0;">
+            <audio id="musicPlayer" controls style="width: 100%; max-width: 500px; margin: 0 auto; display: block; filter: hue-rotate(180deg) brightness(1.2);">
+              <source src="Música futurista - Vem para Etec - Lucas Antonini (youtube).mp3" type="audio/mpeg">
+              Seu navegador não suporta o elemento de áudio.
+            </audio>
+            <p style="color: #00e6ff; font-size: 1rem; margin-top: 15px; text-align: center;">
+              🎵 Música Futurista
+            </p>
+          </div>
+        </div>
+        <button class="close-btn" id="closePortfolio">Fechar</button>
+      </div>
+    </div>
+
+    <!-- Tela de Descanso -->
+    <div class="screensaver" id="screensaver">
+      <div class="grid"></div>
+      <div class="time" id="screensaverTime"></div>
+      <div class="ball" id="screensaverBall"></div>
+    </div>
+
+    <!-- Luzes animadas -->
+    <div class="energy" style="top: 10%; left: 20%; animation-delay: 0s;"></div>
+    <div class="energy" style="top: 30%; left: 80%; animation-delay: 1s;"></div>
+    <div class="energy" style="top: 60%; left: 40%; animation-delay: 2s;"></div>
+    <div class="energy" style="top: 80%; left: 70%; animation-delay: 3s;"></div>
+  </div>
+
+  <script>
+    // Estado do Jogo
+    const gameState = {
+      coins: parseInt(localStorage.getItem('ecoCoins')) || 0,
+      lives: 3,
+      round: 1,
+      totalRounds: 6,
+      timer: 15,
+      combo: 1,
+      score: 0,
+      mode: 'facil',
+      selectedCharacter: localStorage.getItem('selectedCharacter') || 'mago',
+      ownedItems: JSON.parse(localStorage.getItem('ownedItems')) || [],
+      activeBoosts: {
+        extraLife: false,
+        extraTime: false,
+        slowMotion: false,
+        doubleCoins: false
+      },
+      currentLeaderboardMode: 'facil'
+    };
+
+    // Personagens
+    const characters = [
+      { id: 'mago', name: 'Mago do Lixo', emoji: '🧙‍♂️', desc: 'Rápido e preciso' },
+      { id: 'futurista', name: 'Futurista Reciclador', emoji: '🤖', desc: 'Tecnologia verde' },
+      { id: 'biologo', name: 'Biólogo Maluco', emoji: '👨‍🔬', desc: 'Conhece tudo' },
+      { id: 'capitao', name: 'Capitão Lixeira', emoji: '🦸', desc: 'Herói do planeta' }
+    ];
+
+    // Itens da Loja
+    const shopItems = [
+      { id: 'extraLife', name: 'Vida Extra', icon: '❤️', price: 50, desc: 'Adiciona +1 vida', type: 'boost' },
+      { id: 'extraTime', name: '+5 Segundos', icon: '⏰', price: 40, desc: 'Ganha 5s extras', type: 'boost' },
+      { id: 'slowMotion', name: 'Câmera Lenta', icon: '🐌', price: 60, desc: 'Itens caem devagar', type: 'boost' },
+      { id: 'doubleCoins', name: 'Moedas x2', icon: '💰', price: 80, desc: 'Dobra suas moedas', type: 'boost' },
+      { id: 'ocean', name: 'Tema Oceano', icon: '🌊', price: 75, desc: 'Tema azul', type: 'theme' },
+      { id: 'forest', name: 'Tema Floresta', icon: '🌲', price: 75, desc: 'Tema verde', type: 'theme' },
+      { id: 'sunset', name: 'Pôr do Sol', icon: '🌅', price: 75, desc: 'Tema laranja', type: 'theme' },
+      { id: 'night', name: 'Tema Noite', icon: '🌙', price: 75, desc: 'Tema escuro', type: 'theme' }
+    ];
+
+    // Tipos de Lixo
+    const trashTypes = {
+      plastico: ['🥤', '🧴', '🛍️', '🥛', '💿', '🍼', '🩹'],
+      metal: ['🥫', '🔧', '🔩', '⚙️', '⛓️', '🗝️', '🔎'],
+      organico: ['🍎', '🍌', '🥕', '🍞', '🥚', '🌽', '🍊', '🥔', '🧅'],
+      vidro: ['🍾', '💡', '🔬', '⚗️', '🍺'],
+      papel: ['📄', '📰', '📦', '📚', '🎫', '🗞️', '📋'],
+      especial: ['🔋', '📱', '💻', '🖥️', '⌚', '🎮', '🔌']
+    };
+
+    // Configurações por Modo
+    const modeConfig = {
+      facil: { rounds: 6, time: 15, speed: 3 },
+      medio: { rounds: 10, time: 10, speed: 5 },
+      dificil: { rounds: 10, time: 8, speed: 7 }
+    };
+
+    let timerInterval;
+    let fallingInterval;
+    let currentFallingItem = null;
+
+    // Sistema de Sons
+    const soundEffects = {
+      correct: null,
+      wrong: null,
+      coin: null,
+      combo: null,
+      gameOver: null,
+      victory: null,
+      click: null
+    };
+
+    let isMuted = localStorage.getItem('soundMuted') === 'true';
+
+    function initSounds() {
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      
+      soundEffects.correct = () => {
+        if (isMuted) return;
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        osc.connect(gain);
+        gain.connect(audioContext.destination);
+        osc.frequency.value = 523.25;
+        gain.gain.setValueAtTime(0.3, audioContext.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+        osc.start(audioContext.currentTime);
+        osc.stop(audioContext.currentTime + 0.3);
+      };
+
+      soundEffects.wrong = () => {
+        if (isMuted) return;
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        osc.connect(gain);
+        gain.connect(audioContext.destination);
+        osc.frequency.value = 130.81;
+        osc.type = 'sawtooth';
+        gain.gain.setValueAtTime(0.3, audioContext.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+        osc.start(audioContext.currentTime);
+        osc.stop(audioContext.currentTime + 0.5);
+      };
+
+      soundEffects.coin = () => {
+        if (isMuted) return;
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        osc.connect(gain);
+        gain.connect(audioContext.destination);
+        osc.frequency.setValueAtTime(800, audioContext.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(1200, audioContext.currentTime + 0.1);
+        gain.gain.setValueAtTime(0.3, audioContext.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+        osc.start(audioContext.currentTime);
+        osc.stop(audioContext.currentTime + 0.2);
+      };
+
+      soundEffects.combo = () => {
+        if (isMuted) return;
+        const notes = [523.25, 659.25, 783.99];
+        notes.forEach((freq, i) => {
+          const osc = audioContext.createOscillator();
+          const gain = audioContext.createGain();
+          osc.connect(gain);
+          gain.connect(audioContext.destination);
+          osc.frequency.value = freq;
+          gain.gain.setValueAtTime(0.2, audioContext.currentTime + i * 0.1);
+          gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + i * 0.1 + 0.2);
+          osc.start(audioContext.currentTime + i * 0.1);
+          osc.stop(audioContext.currentTime + i * 0.1 + 0.2);
+        });
+      };
+
+      soundEffects.gameOver = () => {
+        if (isMuted) return;
+        const notes = [392, 349.23, 293.66, 261.63];
+        notes.forEach((freq, i) => {
+          const osc = audioContext.createOscillator();
+          const gain = audioContext.createGain();
+          osc.connect(gain);
+          gain.connect(audioContext.destination);
+          osc.frequency.value = freq;
+          osc.type = 'sine';
+          gain.gain.setValueAtTime(0.3, audioContext.currentTime + i * 0.15);
+          gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + i * 0.15 + 0.4);
+          osc.start(audioContext.currentTime + i * 0.15);
+          osc.stop(audioContext.currentTime + i * 0.15 + 0.4);
+        });
+      };
+
+      soundEffects.victory = () => {
+        if (isMuted) return;
+        const melody = [523.25, 587.33, 659.25, 783.99];
+        melody.forEach((freq, i) => {
+          const osc = audioContext.createOscillator();
+          const gain = audioContext.createGain();
+          osc.connect(gain);
+          gain.connect(audioContext.destination);
+          osc.frequency.value = freq;
+          osc.type = 'sine';
+          gain.gain.setValueAtTime(0.25, audioContext.currentTime + i * 0.15);
+          gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + i * 0.15 + 0.3);
+          osc.start(audioContext.currentTime + i * 0.15);
+          osc.stop(audioContext.currentTime + i * 0.15 + 0.3);
+        });
+      };
+
+      soundEffects.click = () => {
+        if (isMuted) return;
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        osc.connect(gain);
+        gain.connect(audioContext.destination);
+        osc.frequency.value = 1000;
+        gain.gain.setValueAtTime(0.1, audioContext.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
+        osc.start(audioContext.currentTime);
+        osc.stop(audioContext.currentTime + 0.05);
+      };
+    }
+
+    function toggleSound() {
+      isMuted = !isMuted;
+      localStorage.setItem('soundMuted', isMuted);
+      updateSoundButton();
+      if (!isMuted) soundEffects.click();
+    }
+
+    function updateSoundButton() {
+      const btn = document.getElementById('soundToggle');
+      if (btn) {
+        btn.textContent = isMuted ? '🔇 SOM' : '🔊 SOM';
+      }
+    }
+
+    function init() {
+      updateCoinsDisplay();
+      renderCharacters();
+      renderShop();
+      renderLeaderboard();
+      initSounds();
+      updateSoundButton();
+    }
+
+    function showGameScreen(screenId) {
+      document.querySelectorAll('.game-screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(screenId).classList.add('active');
+      soundEffects.click();
+      
+      if (screenId === 'shopScreen') {
+        renderShop();
+      } else if (screenId === 'leaderboardScreen') {
+        renderLeaderboard();
+      }
+    }
+
+    function renderCharacters() {
+      const container = document.getElementById('characterSelect');
+      container.innerHTML = characters.map(char => `
+        <div class="character-card ${gameState.selectedCharacter === char.id ? 'selected' : ''}" 
+             onclick="selectCharacter('${char.id}')">
+          <div class="character-avatar">${char.emoji}</div>
+          <h4>${char.name}</h4>
+          <p>${char.desc}</p>
+        </div>
+      `).join('');
+    }
+
+    function selectCharacter(id) {
+      gameState.selectedCharacter = id;
+      localStorage.setItem('selectedCharacter', id);
+      renderCharacters();
+      soundEffects.click();
+    }
+
+    function renderShop() {
+      const grid = document.getElementById('shopGrid');
+      document.getElementById('shopCoins').textContent = gameState.coins;
+      
+      grid.innerHTML = shopItems.map(item => {
+        const owned = gameState.ownedItems.includes(item.id);
+        return `
+          <div class="shop-item ${owned ? 'owned' : ''}" onclick="${!owned ? `buyItem('${item.id}')` : ''}">
+            <div class="icon">${item.icon}</div>
+            <h4>${item.name}</h4>
+            <p>${item.desc}</p>
+            <div class="price">${owned ? '✅ COMPRADO' : `💰 ${item.price} moedas`}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function buyItem(itemId) {
+      const item = shopItems.find(i => i.id === itemId);
+      if (gameState.coins >= item.price && !gameState.ownedItems.includes(itemId)) {
+        gameState.coins -= item.price;
+        gameState.ownedItems.push(itemId);
+        localStorage.setItem('ecoCoins', gameState.coins);
+        localStorage.setItem('ownedItems', JSON.stringify(gameState.ownedItems));
+        updateCoinsDisplay();
+        renderShop();
+        soundEffects.coin();
+        
+        if (item.type === 'boost') {
+          gameState.activeBoosts[itemId] = true;
+        } else if (item.type === 'theme') {
+          document.body.className = 'theme-' + itemId;
+        }
+      } else {
+        soundEffects.wrong();
+      }
+    }
+
+    function updateCoinsDisplay() {
+      document.getElementById('menuCoins').textContent = gameState.coins;
+      const coinsEl = document.getElementById('coins');
+      if (coinsEl) coinsEl.textContent = gameState.coins;
+      const shopCoinsEl = document.getElementById('shopCoins');
+      if (shopCoinsEl) shopCoinsEl.textContent = gameState.coins;
+    }
+
+    function startGame(mode) {
+      gameState.mode = mode;
+      const config = modeConfig[mode];
+      
+      gameState.lives = 3;
+      if (gameState.activeBoosts.extraLife) {
+        gameState.lives += 1;
+        gameState.activeBoosts.extraLife = false;
+        localStorage.setItem('ownedItems', JSON.stringify(gameState.ownedItems.filter(id => id !== 'extraLife')));
+      }
+      
+      gameState.round = 1;
+      gameState.totalRounds = config.rounds;
+      gameState.timer = config.time;
+      if (gameState.activeBoosts.extraTime) {
+        gameState.timer += 5;
+        gameState.activeBoosts.extraTime = false;
+        localStorage.setItem('ownedItems', JSON.stringify(gameState.ownedItems.filter(id => id !== 'extraTime')));
+      }
+      
+      gameState.combo = 1;
+      gameState.score = 0;
+
+      soundEffects.click();
+      showGameScreen('gameScreen');
+      setupBins();
+      updateHUD();
+      startRound();
+    }
+
+    function setupBins() {
+      const container = document.getElementById('binsContainer');
+      const bins = [
+        { type: 'plastico', color: '#e74c3c', icon: '🔴', label: 'PLÁSTICO' },
+        { type: 'metal', color: '#f1c40f', icon: '🟡', label: 'METAL' },
+        { type: 'organico', color: '#8b4513', icon: '🟤', label: 'ORGÂNICO' },
+        { type: 'vidro', color: '#2ecc71', icon: '🟢', label: 'VIDRO' },
+        { type: 'papel', color: '#3498db', icon: '🔵', label: 'PAPEL' },
+        { type: 'especial', color: '#9b59b6', icon: '🟣', label: 'ESPECIAL' }
+      ];
+
+      container.innerHTML = bins.map(bin => `
+        <div class="bin" data-type="${bin.type}" style="background: ${bin.color};" 
+             onclick="dropInBin('${bin.type}')">
+          <div>${bin.icon}</div>
+          <div class="bin-label">${bin.label}</div>
+        </div>
+      `).join('');
+    }
+
+    function startRound() {
+      if (gameState.round > gameState.totalRounds) {
+        endGame(true);
+        return;
+      }
+
+      updateHUD();
+      spawnItem();
+      startTimer();
+    }
+
+    function spawnItem() {
+      if (currentFallingItem) {
+        currentFallingItem.remove();
+      }
+
+      const types = Object.keys(trashTypes);
+      const randomType = types[Math.floor(Math.random() * types.length)];
+      const items = trashTypes[randomType];
+      const randomItem = items[Math.floor(Math.random() * items.length)];
+
+      const item = document.createElement('div');
+      item.className = 'falling-item';
+      item.textContent = randomItem;
+      item.dataset.type = randomType;
+      item.style.left = Math.random() * (document.getElementById('gameArea').offsetWidth - 60) + 'px';
+      item.style.top = '0px';
+
+      document.getElementById('gameArea').appendChild(item);
+      currentFallingItem = item;
+
+      const config = modeConfig[gameState.mode];
+      let speed = config.speed + (gameState.round - 1) * 0.5;
+      
+      if (gameState.activeBoosts.slowMotion) {
+        speed = speed / 2;
+        gameState.activeBoosts.slowMotion = false;
+        localStorage.setItem('ownedItems', JSON.stringify(gameState.ownedItems.filter(id => id !== 'slowMotion')));
+      }
+
+      animateItem(item, speed);
+    }
+
+    function animateItem(item, speed) {
+      let top = 0;
+      fallingInterval = setInterval(() => {
+        top += speed;
+        item.style.top = top + 'px';
+
+        if (top > 280) {
+          clearInterval(fallingInterval);
+          loseLife();
+        }
+      }, 30);
+    }
+
+    function dropInBin(binType) {
+      if (!currentFallingItem) return;
+
+      const itemType = currentFallingItem.dataset.type;
+      clearInterval(fallingInterval);
+
+      if (itemType === binType) {
+        soundEffects.correct();
+        
+        const bin = document.querySelector(`.bin[data-type="${binType}"]`);
+        bin.classList.add('highlight');
+        setTimeout(() => bin.classList.remove('highlight'), 500);
+
+        gameState.combo++;
+        const points = 10 * gameState.combo;
+        gameState.score += points;
+        
+        let coinsEarned = Math.ceil(points / 10);
+        if (gameState.activeBoosts.doubleCoins) {
+          coinsEarned *= 2;
+        }
+        gameState.coins += coinsEarned;
+
+        if (gameState.combo > 2) {
+          soundEffects.combo();
+          showCombo();
+        } else {
+          soundEffects.coin();
+        }
+
+        localStorage.setItem('ecoCoins', gameState.coins);
+        updateCoinsDisplay();
+        
+        currentFallingItem.remove();
+        currentFallingItem = null;
+
+        nextRound();
+      } else {
+        soundEffects.wrong();
+        loseLife();
+      }
+    }
+
+    function showCombo() {
+      const combo = document.createElement('div');
+      combo.className = 'combo-indicator';
+      combo.textContent = `COMBO x${gameState.combo}! 🔥`;
+      document.getElementById('gameArea').appendChild(combo);
+      setTimeout(() => combo.remove(), 1000);
+    }
+
+    function loseLife() {
+      gameState.lives--;
+      gameState.combo = 1;
+      
+      if (currentFallingItem) {
+        currentFallingItem.remove();
+        currentFallingItem = null;
+      }
+      clearInterval(fallingInterval);
+
+      updateHUD();
+
+      if (gameState.lives <= 0) {
+        endGame(false);
+      } else {
+        nextRound();
+      }
+    }
+
+    function nextRound() {
+      clearInterval(timerInterval);
+      gameState.round++;
+      
+      const config = modeConfig[gameState.mode];
+      gameState.timer = config.time;
+
+      setTimeout(() => startRound(), 500);
+    }
+
+    function startTimer() {
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        gameState.timer--;
+        document.getElementById('timer').textContent = gameState.timer;
+
+        if (gameState.timer <= 0) {
+          clearInterval(timerInterval);
+          loseLife();
+        }
+      }, 1000);
+    }
+
+    function updateHUD() {
+      document.getElementById('hearts').innerHTML = '❤️'.repeat(gameState.lives);
+      document.getElementById('round').textContent = gameState.round;
+      document.getElementById('totalRounds').textContent = gameState.totalRounds;
+      document.getElementById('timer').textContent = gameState.timer;
+      document.getElementById('combo').textContent = gameState.combo;
+      
+      const progress = (gameState.round / gameState.totalRounds) * 100;
+      const progressBar = document.getElementById('progressBar');
+      progressBar.style.width = progress + '%';
+      progressBar.textContent = Math.round(progress) + '%';
+    }
+
+    function endGame(completed) {
+      clearInterval(timerInterval);
+      clearInterval(fallingInterval);
+      
+      if (gameState.activeBoosts.doubleCoins) {
+        gameState.activeBoosts.doubleCoins = false;
+        localStorage.setItem('ownedItems', JSON.stringify(gameState.ownedItems.filter(id => id !== 'doubleCoins')));
+      }
+
+      if (completed) {
+        soundEffects.victory();
+      } else {
+        soundEffects.gameOver();
+      }
+
+      const timeBonus = gameState.timer > 0 ? gameState.timer * 5 : 0;
+      const finalScore = gameState.score + timeBonus;
+
+      document.getElementById('finalScore').textContent = finalScore;
+      document.getElementById('coinsEarned').textContent = gameState.coins;
+
+      saveScore(finalScore);
+
+      const rank = getRank(finalScore);
+      document.getElementById('rankingMessage').innerHTML = `
+        <div style="font-size: 1.8em; margin-top: 20px; color: #fff;">
+          ${rank.emoji} ${rank.title}
+        </div>
+      `;
+
+      if (completed) {
+        document.getElementById('gameOverTitle').textContent = '🎉 Parabéns! Você Venceu!';
+        document.getElementById('gameOverTitle').style.color = '#2ecc71';
+      } else {
+        document.getElementById('gameOverTitle').textContent = '💔 Game Over!';
+        document.getElementById('gameOverTitle').style.color = '#e74c3c';
+      }
+
+      showGameScreen('gameOverScreen');
+    }
+
+    function getRank(score) {
+      if (score >= 1000) return { emoji: '♻️', title: 'LENDA DA RECICLAGEM' };
+      if (score >= 500) return { emoji: '🌳', title: 'GUARDIÃO DO PLANETA' };
+      return { emoji: '🌱', title: 'INICIANTE VERDE' };
+    }
+
+    function saveScore(score) {
+      let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+      const char = characters.find(c => c.id === gameState.selectedCharacter);
+      
+      leaderboard.push({
+        name: char.name,
+        emoji: char.emoji,
+        score: score,
+        date: new Date().toLocaleDateString('pt-BR'),
+        mode: gameState.mode
+      });
+
+      leaderboard.sort((a, b) => b.score - a.score);
+      
+      localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+    }
+
+    function showLeaderboard(mode) {
+      gameState.currentLeaderboardMode = mode;
+      soundEffects.click();
+      
+      const buttons = ['leaderboardFacil', 'leaderboardMedio', 'leaderboardDificil', 'leaderboardTodos'];
+      buttons.forEach(btnId => {
+        const btn = document.getElementById(btnId);
+        if (btn) {
+          btn.style.opacity = '0.7';
+        }
+      });
+      
+      const activeBtn = mode === 'facil' ? 'leaderboardFacil' : 
+                       mode === 'medio' ? 'leaderboardMedio' : 
+                       mode === 'dificil' ? 'leaderboardDificil' : 'leaderboardTodos';
+      const activeBtnEl = document.getElementById(activeBtn);
+      if (activeBtnEl) {
+        activeBtnEl.style.opacity = '1';
+      }
+      
+      const titles = {
+        facil: '🌱 Modo: FÁCIL',
+        medio: '🌳 Modo: MÉDIO',
+        dificil: '🔥 Modo: DIFÍCIL',
+        todos: '⭐ Modo: TODOS'
+      };
+      document.getElementById('leaderboardModeTitle').textContent = titles[mode];
+      
+      renderLeaderboard(mode);
+    }
+
+    function renderLeaderboard(filterMode = null) {
+      const mode = filterMode || gameState.currentLeaderboardMode;
+      let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+      const list = document.getElementById('leaderboardList');
+
+      if (mode !== 'todos') {
+        leaderboard = leaderboard.filter(entry => entry.mode === mode);
+      }
+
+      leaderboard.sort((a, b) => b.score - a.score);
+      leaderboard = leaderboard.slice(0, 10);
+
+      if (leaderboard.length === 0) {
+        list.innerHTML = `
+          <div style="text-align: center; padding: 40px; color: #fff;">
+            <div style="font-size: 3em; margin-bottom: 10px;">🏆</div>
+            <p>Nenhum registro ainda neste modo.</p>
+            <p style="font-size: 0.9em;">Seja o primeiro a jogar!</p>
+          </div>
+        `;
+        return;
+      }
+
+      const getMedalColor = (index) => {
+        if (index === 0) return '#FFD700';
+        if (index === 1) return '#C0C0C0';
+        if (index === 2) return '#CD7F32';
+        return '#95a5a6';
+      };
+
+      const getMedalEmoji = (index) => {
+        if (index === 0) return '🥇';
+        if (index === 1) return '🥈';
+        if (index === 2) return '🥉';
+        return '🏅';
+      };
+
+      const modeLabels = {
+        facil: '🌱 FÁCIL',
+        medio: '🌳 MÉDIO',
+        dificil: '🔥 DIFÍCIL'
+      };
+
+      list.innerHTML = leaderboard.map((entry, idx) => `
+        <div class="leaderboard-item" style="border-left: 5px solid ${getMedalColor(idx)};">
+          <div style="display: flex; align-items: center; gap: 15px;">
+            <span class="leaderboard-rank" style="color: ${getMedalColor(idx)};">${getMedalEmoji(idx)}</span>
+            <span style="font-size: 2em;">${entry.emoji}</span>
+            <div>
+              <div style="font-weight: bold; color: #fff;">${entry.name}</div>
+              <div style="font-size: 0.9em; color: #ddd;">
+                ${entry.date} • ${modeLabels[entry.mode] || entry.mode.toUpperCase()}
+              </div>
+            </div>
+          </div>
+          <div style="font-size: 1.5em; font-weight: bold; color: #f39c12;">
+            ${entry.score.toLocaleString('pt-BR')} pts
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function clearLeaderboard() {
+      if (confirm('⚠️ Tem certeza que deseja limpar TODO o ranking?\n\nEsta ação não pode ser desfeita e apagará todos os recordes salvos!')) {
+        localStorage.removeItem('leaderboard');
+        soundEffects.wrong();
+        setTimeout(() => {
+          renderLeaderboard(gameState.currentLeaderboardMode);
+          alert('✅ Ranking limpo com sucesso!');
+        }, 100);
+      } else {
+        soundEffects.click();
+      }
+    }
+
+    // Tela de Descanso
+    let screensaverActive = false;
+    let screensaverX = 0;
+    let screensaverY = 0;
+    let screensaverDx = 0;
+    let screensaverDy = 0;
+    let screensaverColorIndex = 0;
+    let screensaverTrailCounter = 0;
+    let screensaverAnimationId = null;
+
+    const neonColors = [
+      { color: '#ff00ff', name: 'magenta' },
+      { color: '#00ffff', name: 'cyan' },
+      { color: '#00ff00', name: 'lime' },
+      { color: '#ffff00', name: 'yellow' },
+      { color: '#ff0080', name: 'pink' },
+      { color: '#0080ff', name: 'blue' }
+    ];
+
+    function startScreensaver() {
+      const screensaver = document.getElementById('screensaver');
+      const ball = document.getElementById('screensaverBall');
+      
+      screensaver.classList.add('active');
+      screensaverActive = true;
+      
+      screensaverX = Math.random() * (window.innerWidth - 50);
+      screensaverY = Math.random() * (window.innerHeight - 50);
+      screensaverDx = (Math.random() - 0.5) * 6;
+      screensaverDy = (Math.random() - 0.5) * 6;
+      screensaverColorIndex = 0;
+      
+      updateScreensaverTime();
+      updateScreensaverBallColor();
+      animateScreensaver();
+      
+      setInterval(updateScreensaverTime, 1000);
+    }
+
+    function stopScreensaver() {
+      const screensaver = document.getElementById('screensaver');
+      screensaver.classList.remove('active');
+      screensaverActive = false;
+      
+      if (screensaverAnimationId) {
+        cancelAnimationFrame(screensaverAnimationId);
+      }
+      
+      // Limpar trails
+      document.querySelectorAll('.screensaver .trail').forEach(trail => trail.remove());
+    }
+
+    function updateScreensaverTime() {
+      if (!screensaverActive) return;
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      document.getElementById('screensaverTime').textContent = `${hours}:${minutes}:${seconds}`;
+    }
+
+    function createScreensaverTrail() {
+      const trail = document.createElement('div');
+      trail.className = 'trail';
+      trail.style.left = screensaverX + 'px';
+      trail.style.top = screensaverY + 'px';
+      trail.style.background = neonColors[screensaverColorIndex].color;
+      trail.style.boxShadow = `0 0 20px ${neonColors[screensaverColorIndex].color}, 0 0 40px ${neonColors[screensaverColorIndex].color}`;
+      document.getElementById('screensaver').appendChild(trail);
+      
+      setTimeout(() => {
+        trail.style.opacity = '0.5';
+        trail.style.transition = 'opacity 0.5s, transform 0.5s';
+        trail.style.transform = 'scale(0.5)';
+      }, 10);
+      
+      setTimeout(() => {
+        trail.remove();
+      }, 500);
+    }
+
+    function animateScreensaver() {
+      if (!screensaverActive) return;
+      
+      const ball = document.getElementById('screensaverBall');
+      
+      screensaverX += screensaverDx;
+      screensaverY += screensaverDy;
+      
+      if (screensaverX + 50 >= window.innerWidth || screensaverX <= 0) {
+        screensaverDx = -screensaverDx;
+        screensaverColorIndex = (screensaverColorIndex + 1) % neonColors.length;
+        updateScreensaverBallColor();
+      }
+      
+      if (screensaverY + 50 >= window.innerHeight || screensaverY <= 0) {
+        screensaverDy = -screensaverDy;
+        screensaverColorIndex = (screensaverColorIndex + 1) % neonColors.length;
+        updateScreensaverBallColor();
+      }
+      
+      ball.style.left = screensaverX + 'px';
+      ball.style.top = screensaverY + 'px';
+      
+      screensaverTrailCounter++;
+      if (screensaverTrailCounter % 3 === 0) {
+        createScreensaverTrail();
+      }
+      
+      screensaverAnimationId = requestAnimationFrame(animateScreensaver);
+    }
+
+    function updateScreensaverBallColor() {
+      const ball = document.getElementById('screensaverBall');
+      const color = neonColors[screensaverColorIndex].color;
+      ball.style.background = color;
+      ball.style.boxShadow = `
+        0 0 20px ${color},
+        0 0 40px ${color},
+        0 0 60px ${color},
+        0 0 80px ${color},
+        0 0 100px ${color},
+        inset 0 0 20px rgba(255, 255, 255, 0.5)
+      `;
+    }
+
+    // Modais
+    document.getElementById('btnJogo').addEventListener('click', () => {
+      document.getElementById('modalJogo').classList.add('show');
+      init();
+    });
+
+    document.getElementById('btnPortfolio').addEventListener('click', () => {
+      document.getElementById('modalPortfolio').classList.add('show');
+    });
+
+    document.getElementById('btnScreensaver').addEventListener('click', () => {
+      startScreensaver();
+    });
+
+    document.getElementById('closeJogo').addEventListener('click', () => {
+      document.getElementById('modalJogo').classList.remove('show');
+      clearInterval(timerInterval);
+      clearInterval(fallingInterval);
+    });
+
+    document.getElementById('closePortfolio').addEventListener('click', () => {
+      document.getElementById('modalPortfolio').classList.remove('show');
+    });
+
+    // Fechar screensaver com qualquer tecla ou clique
+    document.getElementById('screensaver').addEventListener('click', stopScreensaver);
+    document.addEventListener('keydown', (e) => {
+      if (screensaverActive) {
+        stopScreensaver();
+      }
+    });
+
+    // Fechar modais ao clicar fora
+    document.querySelectorAll('.modal').forEach(modal => {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.classList.remove('show');
+          clearInterval(timerInterval);
+          clearInterval(fallingInterval);
+        }
+      });
+    });
+
+    // Atalhos de teclado
+    document.addEventListener('keydown', (e) => {
+      if (document.getElementById('gameScreen').classList.contains('active')) {
+        const keys = {
+          '1': 'plastico',
+          '2': 'metal',
+          '3': 'organico',
+          '4': 'vidro',
+          '5': 'papel',
+          '6': 'especial'
+        };
+        
+        if (keys[e.key]) {
+          dropInBin(keys[e.key]);
+        }
+      }
+    });
+
+    // Redimensionar janela
+    window.addEventListener('resize', () => {
+      if (screensaverActive) {
+        if (screensaverX + 50 > window.innerWidth) screensaverX = window.innerWidth - 50;
+        if (screensaverY + 50 > window.innerHeight) screensaverY = window.innerHeight - 50;
+      }
+    });
+  </script>
+</body>
+</html>
