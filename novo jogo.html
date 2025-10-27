@@ -1,0 +1,3377 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil Futurista - Decisão 5.0</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+      background: radial-gradient(circle at center, #020024 0%, #090979 40%, #00d4ff 100%);
+      color: #fff;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    body.theme-ocean {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    body.theme-forest {
+      background: linear-gradient(135deg, #134e4a 0%, #047857 50%, #10b981 100%);
+    }
+
+    body.theme-sunset {
+      background: linear-gradient(135deg, #7c2d12 0%, #ea580c 50%, #fb923c 100%);
+    }
+
+    body.theme-night {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+    }
+
+    body.theme-space {
+      background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+    }
+
+    body.theme-cyber {
+      background: linear-gradient(135deg, #ff00ff 0%, #00ffff 50%, #ffff00 100%);
+    }
+
+    .container {
+      text-align: center;
+      width: 100%;
+      max-width: 600px;
+      padding: 20px;
+    }
+
+    .avatar-container {
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .avatar {
+      position: relative;
+      display: inline-block;
+      border-radius: 50%;
+      border: 5px solid #00ffcc;
+      padding: 10px;
+      box-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    .avatar:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px rgba(0, 255, 204, 1);
+    }
+
+    .avatar-img {
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4em;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 255, 204, 0.4);
+      border-radius: 50%;
+      transition: opacity 0.3s ease;
+      opacity: 0;
+    }
+
+    .avatar:hover .overlay {
+      opacity: 0.6;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #00ffcc;
+      margin-top: 20px;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: #aaa;
+      margin-top: 5px;
+    }
+
+    .interaction {
+      margin-top: 30px;
+    }
+
+    .interaction button {
+      background: linear-gradient(45deg, #00ffcc, #00ccff);
+      color: #fff;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 50px;
+      font-size: 1rem;
+      margin: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 255, 204, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .interaction button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0, 255, 204, 0.4);
+    }
+
+    .habilidades {
+      margin-top: 50px;
+      background: rgba(0, 255, 204, 0.1);
+      padding: 20px;
+      border-radius: 15px;
+    }
+
+    .habilidades h2 {
+      color: #00ffcc;
+      margin-bottom: 20px;
+    }
+
+    ul {
+      list-style-type: none;
+    }
+
+    ul li {
+      color: #ddd;
+      margin-bottom: 10px;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.95);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-content {
+      background: linear-gradient(180deg, #136436, #2d6a4f);
+      padding: 30px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 900px;
+      text-align: center;
+      border: 3px solid #4CAF50;
+      box-shadow: 0 0 30px rgba(76, 175, 80, 0.5);
+      margin: auto;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-content h3 {
+      color: #4CAF50;
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .close-btn {
+      background-color: #ff4e50;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 50px;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+    }
+
+    .close-btn:hover {
+      background-color: #ff2d38;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 10px rgba(255, 78, 80, 0.4);
+    }
+
+    .game-screen {
+      display: none;
+    }
+
+    .game-screen.active {
+      display: block;
+      animation: fadeIn 0.5s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .game-btn {
+      padding: 15px;
+      font-size: 1.1em;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: bold;
+      color: white;
+    }
+
+    .game-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .mode-card {
+      background: linear-gradient(135deg, #f6f9fc, #e9f2f9);
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: 3px solid transparent;
+      margin: 10px;
+    }
+
+    .mode-card:hover {
+      transform: scale(1.05);
+      border-color: #2ecc71;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .mode-card h3 {
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+
+    .mode-card .emoji {
+      font-size: 3em;
+      margin-bottom: 10px;
+    }
+
+    .mode-card .info {
+      color: #7f8c8d;
+      font-size: 0.9em;
+    }
+
+    .hud {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .hud-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+
+    .hearts {
+      display: flex;
+      gap: 5px;
+    }
+
+    .pause-btn {
+      background: linear-gradient(45deg, #f39c12, #e67e22);
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s;
+      font-size: 0.9em;
+    }
+
+    .pause-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 10px rgba(243, 156, 18, 0.4);
+    }
+
+    .pause-btn.paused {
+      background: linear-gradient(45deg, #2ecc71, #27ae60);
+    }
+
+    .game-area {
+      position: relative;
+      height: 400px;
+      background: linear-gradient(180deg, #87ceeb 0%, #e0f6ff 100%);
+      border-radius: 15px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .falling-item {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      font-size: 2.5em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: transform 0.1s;
+      z-index: 10;
+    }
+
+    .falling-item:hover {
+      transform: scale(1.1);
+    }
+
+    .falling-item.special {
+      animation: rainbow 2s infinite;
+      box-shadow: 0 0 20px rgba(255,215,0,0.8);
+    }
+
+    @keyframes rainbow {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+
+    .bins-container {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px;
+      background: rgba(255,255,255,0.9);
+      flex-wrap: wrap;
+      z-index: 5;
+    }
+
+    .bin {
+      width: 70px;
+      height: 90px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 1.8em;
+      border: 3px solid transparent;
+      margin: 5px;
+    }
+
+    .bin:hover {
+      transform: translateY(-10px);
+      border-color: #2c3e50;
+    }
+
+    .bin.highlight {
+      animation: pulse 0.5s;
+      border-color: #f1c40f;
+    }
+
+    .bin.magnetic {
+      animation: magnetic 1s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    @keyframes magnetic {
+      0%, 100% { box-shadow: 0 0 10px rgba(52, 152, 219, 0.5); }
+      50% { box-shadow: 0 0 30px rgba(52, 152, 219, 1); }
+    }
+
+    .bin-label {
+      font-size: 0.4em;
+      margin-top: 5px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 30px;
+      background: #ecf0f1;
+      border-radius: 15px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #2ecc71, #27ae60);
+      width: 0%;
+      transition: width 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+    }
+
+    .character-select {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .character-card {
+      background: linear-gradient(135deg, #fff, #f0f0f0);
+      padding: 15px;
+      border-radius: 15px;
+      text-align: center;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .character-card:hover {
+      transform: scale(1.05);
+      border-color: #9b59b6;
+    }
+
+    .character-card.selected {
+      border-color: #2ecc71;
+      background: linear-gradient(135deg, #d4edda, #c3e6cb);
+    }
+
+    .character-card.locked {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .character-level {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: #f39c12;
+      color: white;
+      border-radius: 50%;
+      width: 25px;
+      height: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7em;
+      font-weight: bold;
+    }
+
+    .character-avatar {
+      font-size: 3em;
+      margin-bottom: 10px;
+    }
+
+    .character-card h4 {
+      color: #2c3e50;
+      font-size: 0.9em;
+      margin-bottom: 5px;
+    }
+
+    .character-card p {
+      font-size: 0.75em;
+      color: #7f8c8d;
+    }
+
+    .combo-indicator {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3em;
+      color: #f1c40f;
+      font-weight: bold;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      animation: comboAnim 1s;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    @keyframes comboAnim {
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+      100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+    }
+
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .shop-item {
+      background: linear-gradient(135deg, #f6f9fc, #e9f2f9);
+      padding: 15px;
+      border-radius: 15px;
+      text-align: center;
+      border: 3px solid transparent;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .shop-item:hover {
+      transform: translateY(-5px);
+      border-color: #3498db;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      cursor: pointer;
+    }
+
+    .shop-item .icon {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+
+    .shop-item h4 {
+      color: #2c3e50;
+      font-size: 0.95em;
+      margin-bottom: 8px;
+    }
+
+    .shop-item p {
+      font-size: 0.8em;
+      color: #7f8c8d;
+      margin-bottom: 10px;
+    }
+
+    .shop-item .price {
+      color: #f39c12;
+      font-weight: bold;
+      margin: 10px 0;
+      font-size: 0.9em;
+    }
+
+    .shop-item.theme-owned {
+      opacity: 0.6;
+      background: linear-gradient(135deg, #d4edda, #c3e6cb);
+      border-color: #2ecc71;
+      cursor: default;
+    }
+
+    .shop-item .stock-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #2ecc71;
+      color: white;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.75em;
+      font-weight: bold;
+    }
+
+    .leaderboard-list {
+      margin-top: 20px;
+    }
+
+    .leaderboard-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      background: rgba(255,255,255,0.1);
+      margin-bottom: 10px;
+      border-radius: 10px;
+      transition: all 0.3s;
+    }
+
+    .leaderboard-item:hover {
+      transform: translateX(10px);
+      background: rgba(255,255,255,0.2);
+    }
+
+    .leaderboard-rank {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #f39c12;
+    }
+
+    .achievement-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #f39c12, #e67e22);
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      margin: 5px;
+      font-size: 0.9em;
+      animation: achievementPop 0.5s;
+    }
+
+    @keyframes achievementPop {
+      0% { transform: scale(0); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    .achievement-notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #2ecc71, #27ae60);
+      color: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      z-index: 10000;
+      animation: slideIn 0.5s;
+      max-width: 300px;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(400px); }
+      to { transform: translateX(0); }
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.1);
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 2em;
+      font-weight: bold;
+      color: #2ecc71;
+    }
+
+    .stat-label {
+      color: #ddd;
+      margin-top: 10px;
+    }
+
+    .pet-container {
+      position: absolute;
+      bottom: 100px;
+      left: 20px;
+      font-size: 3em;
+      animation: petFloat 3s infinite ease-in-out;
+      z-index: 20;
+    }
+
+    @keyframes petFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .particle {
+      position: absolute;
+      pointer-events: none;
+      animation: particleFall 2s forwards;
+    }
+
+    @keyframes particleFall {
+      to {
+        transform: translateY(400px);
+        opacity: 0;
+      }
+    }
+
+    .weather-effect {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .daily-challenge {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      padding: 20px;
+      border-radius: 15px;
+      margin: 20px 0;
+      border: 3px solid #ffd700;
+    }
+
+    .challenge-timer {
+      font-size: 1.2em;
+      color: #ffd700;
+      margin-top: 10px;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .mt-3 {
+      margin-top: 30px;
+    }
+
+    .energy {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #00ffff;
+      border-radius: 50%;
+      animation: float 8s infinite ease-in-out;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 0.5; }
+      50% { transform: translateY(-40px) scale(1.5); opacity: 1; }
+      100% { transform: translateY(0); opacity: 0.5; }
+    }
+
+    .screensaver {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #0a0a0a;
+      z-index: 99999;
+      display: none;
+    }
+
+    .screensaver.active {
+      display: block;
+    }
+
+    .screensaver .ball {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: #ff00ff;
+      box-shadow: 
+        0 0 20px #ff00ff,
+        0 0 40px #ff00ff,
+        0 0 60px #ff00ff,
+        0 0 80px #ff00ff,
+        0 0 100px #ff00ff,
+        inset 0 0 20px rgba(255, 255, 255, 0.5);
+      animation: ballPulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes ballPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .screensaver .trail {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .screensaver .time {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #00ffff;
+      font-size: 120px;
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+      pointer-events: none;
+      text-shadow: 
+        0 0 10px #00ffff,
+        0 0 20px #00ffff,
+        0 0 30px #00ffff,
+        0 0 40px #00ffff,
+        0 0 70px #00ffff,
+        0 0 80px #00ffff;
+      opacity: 0.3;
+    }
+
+    .screensaver .grid {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+    }
+
+    .minigame-container {
+      background: rgba(0,0,0,0.8);
+      padding: 20px;
+      border-radius: 15px;
+      margin: 20px 0;
+    }
+
+    .memory-card {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #3498db, #2980b9);
+      border-radius: 10px;
+      display: inline-block;
+      margin: 5px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 2em;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .memory-card.flipped {
+      transform: rotateY(180deg);
+    }
+
+    @media (max-width: 600px) {
+      .bins-container {
+        flex-wrap: wrap;
+      }
+      .bin {
+        width: 60px;
+        height: 80px;
+        font-size: 1.5em;
+      }
+      .shop-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      }
+      .screensaver .time {
+        font-size: 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="avatar-container">
+      <div class="avatar">
+        <div class="avatar-img">🤖</div>
+        <div class="overlay"></div>
+      </div>
+      <h1>Decisão 5.0</h1>
+      <p class="subtitle">Desenvolvedor Full-stack | Criador de Soluções</p>
+    </div>
+
+    <div class="interaction">
+      <button id="btnJogo">🌿 Troque & Economize</button>
+      <button id="btnPortfolio">🎧 Música Futurista</button>
+      <button id="btnScreensaver">✨ Tela de Descanso</button>
+    </div>
+
+    <div class="habilidades">
+      <h2>Habilidades Futuristas</h2>
+      <ul>
+        <li>React.js</li>
+        <li>Python (AI/ML)</li>
+        <li>Blockchain</li>
+        <li>Desenvolvimento de Web3</li>
+      </ul>
+    </div>
+
+    <div class="modal" id="modalJogo">
+      <div class="modal-content">
+        <div id="menuScreen" class="game-screen active">
+          <h3>♻️ TROQUE & ECONOMIZE - ULTIMATE EDITION</h3>
+          <p style="color: #ddd; margin-bottom: 20px;">Aprenda a reciclar e salve o planeta!</p>
+          
+          <div id="dailyChallengeMenu" class="daily-challenge">
+            <h4 style="color: #ffd700;">⭐ DESAFIO DIÁRIO</h4>
+            <p id="dailyChallengeDesc" style="color: #fff; margin: 10px 0;"></p>
+            <div class="challenge-timer" id="challengeTimer"></div>
+          </div>
+
+          <div style="margin: 30px 0;">
+            <button class="game-btn" style="background: linear-gradient(45deg, #2ecc71, #27ae60);" onclick="showGameScreen('characterScreen')">🎮 JOGAR</button>
+            <button class="game-btn" style="background: linear-gradient(45deg, #3498db, #2980b9); margin-top: 10px;" onclick="showGameScreen('shopScreen')">🛒 LOJA</button>
+            <button class="game-btn" style="background: linear-gradient(45deg, #f39c12, #e67e22); margin-top: 10px;" onclick="showGameScreen('leaderboardScreen')">🏆 RANKING</button>
+            <button class="game-btn" style="background: linear-gradient(45deg, #9b59b6, #8e44ad); margin-top: 10px;" onclick="showGameScreen('achievementsScreen')">🏅 CONQUISTAS</button>
+            <button class="game-btn" style="background: linear-gradient(45deg, #e74c3c, #c0392b); margin-top: 10px;" onclick="showGameScreen('statsScreen')">📊 ESTATÍSTICAS</button>
+            <button class="game-btn" style="background: linear-gradient(45deg, #16a085, #1abc9c); margin-top: 10px;" onclick="showGameScreen('minigamesScreen')">🎰 MINI-JOGOS</button>
+            <button class="game-btn" style="background: linear-gradient(45deg, #9b59b6, #8e44ad); margin-top: 10px;" id="soundToggle" onclick="toggleSound()">🔊 SOM</button>
+          </div>
+
+          <div class="hud-item" style="justify-content: center; font-size: 1.2em;">
+            <span>💰 Moedas: <span id="menuCoins">0</span></span>
+            <span style="margin-left: 20px;">⭐ XP: <span id="menuXP">0</span></span>
+            <span style="margin-left: 20px;">🎯 Nível: <span id="menuLevel">1</span></span>
+          </div>
+        </div>
+
+        <div id="characterScreen" class="game-screen">
+          <h3 style="color: #2c3e50; margin-bottom: 20px;">Escolha seu Eco-Guerreiro!</h3>
+          <div class="character-select" id="characterSelect"></div>
+          <div class="text-center mt-3">
+            <button class="game-btn" style="background: linear-gradient(45deg, #2ecc71, #27ae60);" onclick="showGameScreen('modeScreen')">CONTINUAR ➡️</button>
+            <button class="game-btn" style="background: linear-gradient(45deg, #3498db, #2980b9); margin-top: 10px;" onclick="showGameScreen('menuScreen')">⬅️ VOLTAR</button>
+          </div>
+        </div>
+
+        <div id="modeScreen" class="game-screen">
+          <h3 style="color: #2c3e50; margin-bottom: 30px;">Escolha o Modo</h3>
+          
+          <div class="mode-card" onclick="startGame('facil')">
+            <div class="emoji">🌱</div>
+            <h3>FÁCIL</h3>
+            <div class="info">6 rodadas • 15s cada • Velocidade Lenta</div>
+          </div>
+
+          <div class="mode-card" onclick="startGame('medio')">
+            <div class="emoji">🌳</div>
+            <h3>MÉDIO</h3>
+            <div class="info">10 rodadas • 10s cada • Velocidade Normal</div>
+          </div>
+
+          <div class="mode-card" onclick="startGame('dificil')">
+            <div class="emoji">🔥</div>
+            <h3>DIFÍCIL</h3>
+            <div class="info">10 rodadas • 8s cada • Velocidade Rápida</div>
+          </div>
+
+          <div class="mode-card" onclick="startGame('contrarrelogio')">
+            <div class="emoji">⚡</div>
+            <h3>CONTRARRELÓGIO</h3>
+            <div class="info">60 segundos • Velocidade Crescente • Sem Vidas</div>
+          </div>
+
+          <div class="mode-card" onclick="startGame('zen')">
+            <div class="emoji">🧘</div>
+            <h3>ZEN</h3>
+            <div class="info">Sem Limites • Aprenda • Relaxe</div>
+          </div>
+
+          <div class="mode-card" onclick="startGame('puzzle')">
+            <div class="emoji">🧩</div>
+            <h3>PUZZLE</h3>
+            <div class="info">Lixeiras Limitadas • Planeje Bem</div>
+          </div>
+
+          <div class="text-center">
+            <button class="game-btn" style="background: linear-gradient(45deg, #3498db, #2980b9); margin-top: 10px;" onclick="showGameScreen('characterScreen')">⬅️ VOLTAR</button>
+          </div>
+        </div>
+
+        <div id="gameScreen" class="game-screen">
+          <div class="hud">
+            <div class="hud-item">
+              <span>❤️</span>
+              <div class="hearts" id="hearts"></div>
+            </div>
+            <div class="hud-item">
+              <span>⏱️ <span id="timer">15</span>s</span>
+            </div>
+            <div class="hud-item">
+              <span>🎯 <span id="round">1</span>/<span id="totalRounds">6</span></span>
+            </div>
+            <div class="hud-item">
+              <span>💰 <span id="coins">500</span></span>
+            </div>
+            <div class="hud-item">
+              <span>🔥 x<span id="combo">1</span></span>
+            </div>
+            <div class="hud-item">
+              <span>⭐ XP: <span id="xpCounter">0</span></span>
+            </div>
+            <div class="hud-item" id="boostIndicator" style="display: none;">
+              <span id="boostText"></span>
+            </div>
+            <div class="hud-item">
+              <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️</button>
+            </div>
+          </div>
+
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressBar">0%</div>
+          </div>
+
+          <div class="game-area" id="gameArea">
+            <div class="weather-effect" id="weatherEffect"></div>
+            <div class="pet-container" id="petContainer" style="display: none;"></div>
+            <div class="bins-container" id="binsContainer"></div>
+          </div>
+        </div>
+
+        <div id="shopScreen" class="game-screen">
+          <h3 style="color: #2c3e50; margin-bottom: 20px;">🛒 Loja Eco</h3>
+          
+          <div class="hud-item" style="justify-content: center; font-size: 1.3em; margin-bottom: 20px;">
+            <span style="color: #fff;">💰 Suas Moedas: <span id="shopCoins">0</span></span>
+          </div>
+
+          <div style="margin: 20px 0;">
+            <button class="game-btn" style="background: linear-gradient(45deg, #3498db, #2980b9); margin: 5px;" onclick="filterShop('all')">TODOS</button>
+            <button class="game-btn" style="background: linear-gradient(45deg, #2ecc71, #27ae60); margin: 5px;" onclick="filterShop('powerups')">⚡ POWER-UPS</button>
+            <button class="game-btn" style="background: linear-gradient(45deg, #9b59b6, #8e44ad); margin: 5px;" onclick="filterShop('themes')">🎨 TEMAS</button>
+            <button class="game-btn" style="background: linear-gradient(45deg, #f39c12, #e67e22); margin: 5px;" onclick="filterShop('pets')">🐾 PETS</button>
+            <button class="game-btn" style="background: linear-gradient(45deg, #e74c3c, #c0392b); margin: 5px;" onclick="filterShop('upgrades')">💪 UPGRADES</button>
+          </div>
+
+          <div class="shop-grid" id="shopGrid"></div>
+
+          <div class="text-center mt-3">
+            <button class="game-btn" style="background: linear-gradient(45deg, #3498db, #2980b9);" onclick="showGameScreen('menuScreen')">⬅️ VOLTAR</button>
+          </div>
+        </div>
+
+        <div id="achievementsScreen" class="game-screen">
+          <h3 style="color: #fff; margin-bottom: 20px;">🏅 Conquistas</h3>
+          
+          <div style="text-align: center; margin-bottom: 20px;">
+            <p style="color: #ddd;">Desbloqueadas: <span id="achievementCount" style="color: #2ecc71; font-weight: bold;">0</span>/30</p>
+          </div>
+
+          <div id="achievementsList" style="max-height: 500px; overflow-y: auto;"></div>
+
+          <div class="text-center mt-3">
+            <button class="game-btn" style="background: linear-gradient(45deg, #3498db, #2980b9);" onclick="showGameScreen('menuScreen')">⬅️ VOLTAR</button>
+          </div>
+        </div>
+
+        <div id="statsScreen" class="game-screen">
+          <h3 style="color: #fff; margin-bottom: 20px;">📊 Suas Estatísticas</h3>
+          
+          <div class="stats-grid" id="statsGrid"></div>
+
+          <div style="margin-top: 30px; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 15px;">
+            <h4 style="color: #2ecc71; margin-bottom: 15px;">🌍 Impacto Ambiental</h4>
+            <div id="impactStats"></div>
+          </div>
+
+          <div class="text-center mt-3">
+            <button class="game-btn" style="background: linear-gradient(45deg, #e74c3c, #c0392b);" onclick="resetAllData()">🗑️ RESETAR TUDO</button>
+            <button class="game-btn" style="background: linear-gradient(45deg, #3498db, #2980b9); margin-top: 10px;" onclick="showGameScreen('menuScreen')">⬅️ VOLTAR</button>
+          </div>
+        </div>
+
+        <div id="minigamesScreen" class="game-screen">
+          <h3 style="color: #2c3e50; margin-bottom: 20px;">🎰 Mini-Jogos</h3>
+          
+          <div class="mode-card" onclick="startSpinWheel()">
+            <div class="emoji">🎡</div>
+            <h3>ROLETA DA SORTE</h3>
+            <div class="info">50 moedas • Prêmio Aleatório</div>
+          </div>
+
+          <div class="mode-card" onclick="startMemoryGame()">
+            <div class="emoji">🧠</div>
+            <h3>MEMÓRIA ECOLÓGICA</h3>
+            <div class="info">Encontre os Pares • Ganhe Moedas</div>
+          </div>
+
+          <div class="mode-card" onclick="startQuiz()">
+            <div class="emoji">❓</div>
+            <h3>QUIZ AMBIENTAL</h3>
+            <div class="info">Teste Seus Conhecimentos</div>
+          </div>
+
+          <div class="text-center mt-3">
+            <button class="game-btn" style="background: linear-gradient(45deg, #3498db, #2980b9);" onclick="showGameScreen('menuScreen')">⬅️ VOLTAR</button>
+          </div>
+        </div>
+
+        <div id="leaderboardScreen" class="game-screen">
+          <h3 style="color: #fff; margin-bottom: 20px;">🏆 Ranking Semanal</h3>
+          
+          <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+            <button class="game-btn" style="padding: 10px 15px; font-size: 0.9em; background: linear-gradient(45deg, #2ecc71, #27ae60);" onclick="showLeaderboard('facil')" id="leaderboardFacil">🌱 FÁCIL</button>
+            <button class="game-btn" style="padding: 10px 15px; font-size: 0.9em; background: linear-gradient(45deg, #3498db, #2980b9);" onclick="showLeaderboard('medio')" id="leaderboardMedio">🌳 MÉDIO</button>
+            <button class="game-btn" style="padding: 10px 15px; font-size: 0.9em; background: linear-gradient(45deg, #e74c3c, #c0392b);" onclick="showLeaderboard('dificil')" id="leaderboardDificil">🔥 DIFÍCIL</button>
+            <button class="game-btn" style="padding: 10px 15px; font-size: 0.9em; background: linear-gradient(45deg, #f39c12, #e67e22);" onclick="showLeaderboard('todos')" id="leaderboardTodos">⭐ TODOS</button>
+          </div>
+
+          <div style="text-align: center; margin-bottom: 15px;">
+            <span style="font-size: 1.1em; color: #fff; font-weight: bold;" id="leaderboardModeTitle">Modo: FÁCIL</span>
+          </div>
+
+          <div class="leaderboard-list" id="leaderboardList"></div>
+
+          <div class="text-center mt-3">
+            <button class="game-btn" style="background: linear-gradient(45deg, #e74c3c, #c0392b); font-size: 0.9em;" onclick="clearLeaderboard()">🗑️ LIMPAR</button>
+            <button class="game-btn" style="background: linear-gradient(45deg, #3498db, #2980b9); margin-top: 10px;" onclick="showGameScreen('menuScreen')">⬅️ VOLTAR</button>
+          </div>
+        </div>
+
+        <div id="gameOverScreen" class="game-screen">
+          <h3 id="gameOverTitle" style="color: #2c3e50; margin-bottom: 20px;">Game Over!</h3>
+          
+          <div style="text-align: center; font-size: 1.5em; margin: 30px 0;">
+            <div style="color: #fff;">🎯 Pontuação: <span id="finalScore" style="color: #f39c12; font-weight: bold;">0</span></div>
+            <div style="margin-top: 15px; color: #fff;">💰 Moedas: <span id="coinsEarned" style="color: #2ecc71; font-weight: bold;">0</span></div>
+            <div style="margin-top: 15px; color: #fff;">⭐ XP Ganho: <span id="xpEarned" style="color: #3498db; font-weight: bold;">0</span></div>
+            <div style="margin-top: 15px;" id="rankingMessage"></div>
+            <div id="newAchievements" style="margin-top: 20px;"></div>
+          </div>
+
+          <div class="text-center">
+            <button class="game-btn" style="background: linear-gradient(45deg, #2ecc71, #27ae60);" onclick="showGameScreen('modeScreen')">🔄 JOGAR NOVAMENTE</button>
+            <button class="game-btn" style="background: linear-gradient(45deg, #3498db, #2980b9); margin-top: 10px;" onclick="showGameScreen('menuScreen')">🏠 MENU</button>
+          </div>
+        </div>
+
+        <button class="close-btn" id="closeJogo">Fechar</button>
+      </div>
+    </div>
+
+    <div class="modal" id="modalPortfolio">
+      <div class="modal-content" style="background: #1a1a2e; border-color: #00ffcc;">
+        <h3 style="color: #00ffcc;">🎧 Trilha Futurista</h3>
+        <div class="music-container">
+          <p style="color: #aaa; margin: 20px 0;">Curta uma vibe enquanto explora o perfil!</p>
+          <div style="background: rgba(0, 255, 255, 0.1); border: 2px solid #00ffff; box-shadow: 0 0 25px #00ffffaa; border-radius: 20px; padding: 20px; margin: 20px 0;">
+            <audio id="musicPlayer" controls style="width: 100%; max-width: 500px; margin: 0 auto; display: block; filter: hue-rotate(180deg) brightness(1.2);">
+              <source src="Música futurista - Vem para Etec - Lucas Antonini (youtube).mp3" type="audio/mpeg">
+              Seu navegador não suporta o elemento de áudio.
+            </audio>
+            <p style="color: #00e6ff; font-size: 1rem; margin-top: 15px; text-align: center;">🎵 Música Futurista</p>
+          </div>
+        </div>
+        <button class="close-btn" id="closePortfolio">Fechar</button>
+      </div>
+    </div>
+
+    <div class="screensaver" id="screensaver">
+      <div class="grid"></div>
+      <div class="time" id="screensaverTime"></div>
+      <div class="ball" id="screensaverBall"></div>
+    </div>
+
+    <div class="energy" style="top: 10%; left: 20%; animation-delay: 0s;"></div>
+    <div class="energy" style="top: 30%; left: 80%; animation-delay: 1s;"></div>
+    <div class="energy" style="top: 60%; left: 40%; animation-delay: 2s;"></div>
+    <div class="energy" style="top: 80%; left: 70%; animation-delay: 3s;"></div>
+  </div>
+
+  <script>
+    const gameState = {
+      coins: parseInt(localStorage.getItem('ecoCoins')) || 0,
+      xp: parseInt(localStorage.getItem('ecoXP')) || 0,
+      level: parseInt(localStorage.getItem('ecoLevel')) || 1,
+      lives: 3,
+      round: 1,
+      totalRounds: 6,
+      timer: 15,
+      combo: 1,
+      score: 0,
+      mode: 'facil',
+      selectedCharacter: localStorage.getItem('selectedCharacter') || 'mago',
+      selectedPet: localStorage.getItem('selectedPet') || null,
+      itemCounts: JSON.parse(localStorage.getItem('itemCounts')) || {},
+      ownedThemes: JSON.parse(localStorage.getItem('ownedThemes')) || [],
+      ownedPets: JSON.parse(localStorage.getItem('ownedPets')) || [],
+      characterLevels: JSON.parse(localStorage.getItem('characterLevels')) || {},
+      unlockedCharacters: JSON.parse(localStorage.getItem('unlockedCharacters')) || ['mago'],
+      achievements: JSON.parse(localStorage.getItem('achievements')) || [],
+      stats: JSON.parse(localStorage.getItem('gameStats')) || {
+        totalItemsRecycled: 0,
+        totalGamesPlayed: 0,
+        totalCorrectSorts: 0,
+        totalWrongSorts: 0,
+        highestCombo: 0,
+        totalCoinsEarned: 0,
+        totalPlayTime: 0,
+        favoriteItem: null,
+        itemFrequency: {},
+        perfectRounds: 0
+      },
+      upgrades: JSON.parse(localStorage.getItem('upgrades')) || {
+        reflexSpeed: 0,
+        ecoVision: 0,
+        greenHeart: 0
+      },
+      activeBoosts: {
+        extraLife: 0,
+        extraTime: false,
+        slowMotion: 0,
+        doubleCoins: false,
+        shieldProtection: false,
+        timeFreeze: false,
+        luckyClover: false,
+        magneticBins: false,
+        rainbowPower: false,
+        xRayGlasses: false,
+        stickyGloves: false,
+        vacuumCleaner: false
+      },
+      currentLeaderboardMode: 'facil',
+      shieldActive: false,
+      comboNeverResets: false,
+      weatherActive: null,
+      binCapacities: {},
+      shopFilter: 'all',
+      dailyChallenge: JSON.parse(localStorage.getItem('dailyChallenge')) || null,
+      sessionStartTime: Date.now()
+    };
+
+    const characters = [
+      { id: 'mago', name: 'Mago do Lixo', emoji: '🧙‍♂️', desc: 'Rápido e preciso', unlockLevel: 1, ability: 'Velocidade +10%' },
+      { id: 'futurista', name: 'Futurista Reciclador', emoji: '🤖', desc: 'Tecnologia verde', unlockLevel: 5, ability: 'Moedas +20%' },
+      { id: 'biologo', name: 'Biólogo Maluco', emoji: '👨‍🔬', desc: 'Conhece tudo', unlockLevel: 10, ability: 'XP +30%' },
+      { id: 'capitao', name: 'Capitão Lixeira', emoji: '🦸', desc: 'Herói do planeta', unlockLevel: 15, ability: 'Vida extra' },
+      { id: 'ninja', name: 'Ninja Verde', emoji: '🥷', desc: 'Mestre da velocidade', unlockLevel: 20, ability: 'Super speed' },
+      { id: 'cientista', name: 'Cientista Eco', emoji: '👩‍🔬', desc: 'Poder da ciência', unlockLevel: 25, ability: 'Combos infinitos' }
+    ];
+
+    const pets = [
+      { id: 'dog', name: 'Cachorro Eco', emoji: '🐶', price: 500, bonus: '+10% moedas', effect: 'coins' },
+      { id: 'parrot', name: 'Papagaio Sábio', emoji: '🦜', price: 800, bonus: 'Avisa próximo item', effect: 'preview' },
+      { id: 'turtle', name: 'Tartaruga Zen', emoji: '🐢', price: 600, bonus: 'Itens 20% devagar', effect: 'slow' },
+      { id: 'fox', name: 'Raposa Astuta', emoji: '🦊', price: 1000, bonus: 'Combo nunca reseta', effect: 'combo' },
+      { id: 'owl', name: 'Coruja Sábia', emoji: '🦉', price: 1200, bonus: '+50% XP', effect: 'xp' },
+      { id: 'panda', name: 'Panda Sortudo', emoji: '🐼', price: 1500, bonus: 'Itens raros +50%', effect: 'luck' }
+    ];
+
+    const shopItems = [
+      { id: 'extraLife', name: 'Vida Extra', icon: '❤️', price: 100, desc: 'Adiciona +1 vida', type: 'stackable', category: 'powerups' },
+      { id: 'extraTime', name: '+5 Segundos', icon: '⏰', price: 40, desc: 'Ganha 5s extras', type: 'boost', category: 'powerups' },
+      { id: 'slowMotion', name: 'Câmera Lenta', icon: '🌀', price: 150, desc: 'Mais devagar', type: 'stackable', category: 'powerups' },
+      { id: 'doubleCoins', name: 'Moedas x2', icon: '💰', price: 200, desc: 'Dobra moedas', type: 'boost', category: 'powerups' },
+      { id: 'shieldProtection', name: 'Escudo', icon: '🛡️', price: 70, desc: 'Protege de 1 erro', type: 'boost', category: 'powerups' },
+      { id: 'timeFreeze', name: 'Congelar Tempo', icon: '❄️', price: 120, desc: '+10s no tempo', type: 'boost', category: 'powerups' },
+      { id: 'luckyClover', name: 'Trevo da Sorte', icon: '🍀', price: 100, desc: 'Combo infinito', type: 'boost', category: 'powerups' },
+      { id: 'magneticBins', name: 'Lixeiras Magnéticas', icon: '🧲', price: 210, desc: 'Atrai corretos', type: 'boost', category: 'powerups' },
+      { id: 'rainbowPower', name: 'Poder Arco-Íris', icon: '🌈', price: 150, desc: 'Pontos x3', type: 'boost', category: 'powerups' },
+      { id: 'xRayGlasses', name: 'Óculos Raio-X', icon: '👓', price: 180, desc: 'Mostra tipo antes', type: 'boost', category: 'powerups' },
+      { id: 'stickyGloves', name: 'Luvas Pegajosas', icon: '🧤', price: 160, desc: 'Super devagar', type: 'boost', category: 'powerups' },
+      { id: 'vacuumCleaner', name: 'Aspirador de Lixo', icon: '🌪️', price: 250, desc: 'Auto-coleta 5x', type: 'boost', category: 'powerups' },
+      { id: 'ocean', name: 'Tema Oceano', icon: '🌊', price: 75, desc: 'Tema azul', type: 'theme', category: 'themes' },
+      { id: 'forest', name: 'Tema Floresta', icon: '🌲', price: 75, desc: 'Tema verde', type: 'theme', category: 'themes' },
+      { id: 'sunset', name: 'Pôr do Sol', icon: '🌅', price: 75, desc: 'Tema laranja', type: 'theme', category: 'themes' },
+      { id: 'night', name: 'Tema Noite', icon: '🌙', price: 75, desc: 'Tema escuro', type: 'theme', category: 'themes' },
+      { id: 'space', name: 'Tema Espacial', icon: '🚀', price: 150, desc: 'Tema cósmico', type: 'theme', category: 'themes' },
+      { id: 'cyber', name: 'Tema Cyberpunk', icon: '🌆', price: 200, desc: 'Tema neon', type: 'theme', category: 'themes' },
+      { id: 'reflexSpeed', name: 'Reflexos Aprimorados', icon: '⚡', price: 500, desc: '+5% velocidade', type: 'upgrade', category: 'upgrades' },
+      { id: 'ecoVision', name: 'Visão Ecológica', icon: '👁️', price: 600, desc: 'Itens brilham', type: 'upgrade', category: 'upgrades' },
+      { id: 'greenHeart', name: 'Coração Verde', icon: '💚', price: 800, desc: '+1 vida inicial', type: 'upgrade', category: 'upgrades' }
+    ];
+
+    const trashTypes = {
+      plastico: ['🥤', '🧴', '🛍️', '🗑️', '💿', '🧋', '🩹', '🎈', '🪥'],
+      metal: ['🥫', '🔧', '🔩', '⚙️', '⛓️', '🗝️', '🔨', '📎', '🔑'],
+      organico: ['🍎', '🌽', '🥕', '🍞', '🥚', '🍌', '🍊', '🥔', '🧅', '🥬', '🫑'],
+      vidro: ['🍾', '💡', '🪞', '⚗️', '🍺', '🍷', '🧪'],
+      papel: ['📄', '📰', '📦', '📚', '🎫', '🗞️', '📋', '🏷️', '📃'],
+      especial: ['🔋', '📱', '💻', '🖥️', '⌚', '🎮', '🔌', '💾', '🖱️']
+    };
+
+    const specialItems = {
+      goldenStar: { emoji: '⭐', effect: 'points5x', duration: 10000, color: '#FFD700' },
+      bomb: { emoji: '💣', effect: 'lose2lives', color: '#000000' },
+      mysteryBox: { emoji: '🎁', effect: 'randomCoins', color: '#FF69B4' },
+      lightning: { emoji: '⚡', effect: 'auto5', color: '#FFFF00' },
+      heart: { emoji: '💖', effect: 'heal1', color: '#FF1493' },
+      hourglass: { emoji: '⏳', effect: 'time10', color: '#DEB887' }
+    };
+
+    const achievements = [
+      { id: 'first_step', name: 'Primeiro Passo', desc: 'Complete o modo fácil', icon: '🌱', requirement: 'completeEasy', unlocked: false },
+      { id: 'recycler_expert', name: 'Reciclador Expert', desc: 'Acerte 100 itens seguidos', icon: '♻️', requirement: 'combo100', unlocked: false },
+      { id: 'millionaire', name: 'Milionário Verde', desc: 'Acumule 10.000 moedas', icon: '💎', requirement: 'coins10k', unlocked: false },
+      { id: 'lightning_fast', name: 'Relâmpago', desc: 'Complete rodada em <5s', icon: '⚡', requirement: 'fastRound', unlocked: false },
+      { id: 'perfection', name: 'Perfeição', desc: 'Complete difícil sem erros', icon: '🎯', requirement: 'perfectHard', unlocked: false },
+      { id: 'combo_master', name: 'Mestre dos Combos', desc: 'Combo x50', icon: '🔥', requirement: 'combo50', unlocked: false },
+      { id: 'planet_saver', name: 'Salvador do Planeta', desc: 'Recicle 1000 itens', icon: '🌍', requirement: 'recycle1000', unlocked: false },
+      { id: 'shopaholic', name: 'Comprador Compulsivo', desc: 'Compre 20 itens', icon: '🛒', requirement: 'buy20', unlocked: false },
+      { id: 'zen_master', name: 'Mestre Zen', desc: 'Jogue 1 hora no modo zen', icon: '🧘', requirement: 'zen1hour', unlocked: false },
+      { id: 'speedster', name: 'Velocista', desc: 'Complete contrarrelógio 60s', icon: '🏃', requirement: 'speedRun', unlocked: false },
+      { id: 'collector', name: 'Colecionador', desc: 'Desbloqueie todos personagens', icon: '🎭', requirement: 'allChars', unlocked: false },
+      { id: 'pet_lover', name: 'Amante dos Pets', desc: 'Compre todos os pets', icon: '🐾', requirement: 'allPets', unlocked: false },
+      { id: 'theme_master', name: 'Mestre dos Temas', desc: 'Compre todos os temas', icon: '🎨', requirement: 'allThemes', unlocked: false },
+      { id: 'daily_warrior', name: 'Guerreiro Diário', desc: 'Complete 10 desafios diários', icon: '📅', requirement: 'daily10', unlocked: false },
+      { id: 'no_mistakes', name: 'Sem Erros', desc: '50 acertos seguidos', icon: '✨', requirement: 'perfect50', unlocked: false },
+      { id: 'time_master', name: 'Mestre do Tempo', desc: 'Jogue por 5 horas total', icon: '⏰', requirement: 'playTime5h', unlocked: false },
+      { id: 'rich', name: 'Rico em Verde', desc: 'Tenha 5000 moedas ao mesmo tempo', icon: '💰', requirement: 'hold5k', unlocked: false },
+      { id: 'level_10', name: 'Nível 10', desc: 'Alcance o nível 10', icon: '🔟', requirement: 'level10', unlocked: false },
+      { id: 'level_25', name: 'Nível 25', desc: 'Alcance o nível 25', icon: '🏆', requirement: 'level25', unlocked: false },
+      { id: 'level_50', name: 'Nível 50', desc: 'Alcance o nível 50', icon: '👑', requirement: 'level50', unlocked: false },
+      { id: 'plastic_pro', name: 'Pro do Plástico', desc: 'Recicle 200 plásticos', icon: '🥤', requirement: 'plastic200', unlocked: false },
+      { id: 'metal_master', name: 'Mestre do Metal', desc: 'Recicle 200 metais', icon: '🥫', requirement: 'metal200', unlocked: false },
+      { id: 'organic_guru', name: 'Guru Orgânico', desc: 'Recicle 200 orgânicos', icon: '🍎', requirement: 'organic200', unlocked: false },
+      { id: 'glass_genius', name: 'Gênio do Vidro', desc: 'Recicle 200 vidros', icon: '🍾', requirement: 'glass200', unlocked: false },
+      { id: 'paper_prince', name: 'Príncipe do Papel', desc: 'Recicle 200 papéis', icon: '📄', requirement: 'paper200', unlocked: false },
+      { id: 'special_star', name: 'Estrela Especial', desc: 'Recicle 100 itens especiais', icon: '🔋', requirement: 'special100', unlocked: false },
+      { id: 'ultimate_recycler', name: 'Reciclador Supremo', desc: 'Recicle 5000 itens', icon: '🌟', requirement: 'recycle5000', unlocked: false },
+      { id: 'weather_warrior', name: 'Guerreiro do Clima', desc: 'Vença com todos eventos climáticos', icon: '🌪️', requirement: 'allWeather', unlocked: false },
+      { id: 'minigame_champ', name: 'Campeão dos Mini-Jogos', desc: 'Vença todos os mini-jogos', icon: '🎮', requirement: 'allMinigames', unlocked: false },
+      { id: 'legend', name: 'LENDA VIVA', desc: 'Alcance 100.000 pontos em uma partida', icon: '👑', requirement: 'score100k', unlocked: false }
+    ];
+
+    const modeConfig = {
+      facil: { rounds: 6, time: 15, speed: 3, specialChance: 0.1 },
+      medio: { rounds: 10, time: 10, speed: 5, specialChance: 0.15 },
+      dificil: { rounds: 10, time: 8, speed: 7, specialChance: 0.2 },
+      contrarrelogio: { rounds: 999, time: 60, speed: 4, speedIncrease: true, specialChance: 0.25 },
+      zen: { rounds: 999, time: 999, speed: 2, noLives: true, specialChance: 0.05 },
+      puzzle: { rounds: 15, time: 20, speed: 4, limitedBins: true, binCapacity: 5, specialChance: 0.12 }
+    };
+
+    const dailyChallenges = [
+      { id: 'monday_plastic', name: 'Segunda de Plástico', desc: 'Recicle 30 plásticos', type: 'plastico', target: 30, reward: 200, day: 1 },
+      { id: 'tuesday_metal', name: 'Terça de Metal', desc: 'Recicle 25 metais', type: 'metal', target: 25, reward: 200, day: 2 },
+      { id: 'wednesday_organic', name: 'Quarta Orgânica', desc: 'Recicle 35 orgânicos', type: 'organico', target: 35, reward: 200, day: 3 },
+      { id: 'thursday_glass', name: 'Quinta de Vidro', desc: 'Recicle 20 vidros', type: 'vidro', target: 20, reward: 200, day: 4 },
+      { id: 'friday_paper', name: 'Sexta do Papel', desc: 'Recicle 30 papéis', type: 'papel', target: 30, reward: 200, day: 5 },
+      { id: 'saturday_special', name: 'Sábado Especial', desc: 'Recicle 15 especiais', type: 'especial', target: 15, reward: 300, day: 6 },
+      { id: 'sunday_all', name: 'Domingo Total', desc: 'Recicle 100 itens quaisquer', type: 'all', target: 100, reward: 400, day: 0 }
+    ];
+
+    const quizQuestions = [
+      { question: 'Quanto tempo leva para uma garrafa plástica se decompor?', answers: ['1 ano', '10 anos', '100 anos', '450 anos'], correct: 3 },
+      { question: 'Qual cor de lixeira é para vidro?', answers: ['Vermelho', 'Verde', 'Azul', 'Amarelo'], correct: 1 },
+      { question: 'O que é compostagem?', answers: ['Queimar lixo', 'Reciclar plástico', 'Decomposição de orgânicos', 'Enterrar lixo'], correct: 2 },
+      { question: 'Qual destes NÃO é reciclável?', answers: ['Lata de alumínio', 'Garrafa PET', 'Papel higiênico usado', 'Jornal'], correct: 2 },
+      { question: 'Quantas árvores são salvas reciclando 1 tonelada de papel?', answers: ['5', '10', '15', '20'], correct: 2 },
+      { question: 'Pilhas e baterias vão em qual lixo?', answers: ['Orgânico', 'Comum', 'Especial', 'Metal'], correct: 2 },
+      { question: 'Qual país mais recicla no mundo?', answers: ['Brasil', 'EUA', 'Alemanha', 'Japão'], correct: 2 },
+      { question: 'Qual percentual do lixo brasileiro é reciclado?', answers: ['Menos de 5%', '20%', '40%', '60%'], correct: 0 },
+      { question: 'Quanto economiza-se de energia reciclando alumínio?', answers: ['30%', '50%', '75%', '95%'], correct: 3 },
+      { question: 'O que significa os 3 Rs?', answers: ['Reciclar, Reusar, Reduzir', 'Recolher, Reagir, Renovar', 'Restaurar, Refazer, Reconstruir', 'Reparar, Reaproveitar, Reformar'], correct: 0 }
+    ];
+
+    let timerInterval;
+    let fallingInterval;
+    let currentFallingItem = null;
+    let isPaused = false;
+    let currentQuizIndex = 0;
+    let memoryCards = [];
+    let memoryFlipped = [];
+    let memoryMatched = [];
+
+    const soundEffects = {
+      correct: null,
+      wrong: null,
+      coin: null,
+      combo: null,
+      gameOver: null,
+      victory: null,
+      click: null,
+      powerup: null,
+      achievement: null
+    };
+
+    let isMuted = localStorage.getItem('soundMuted') === 'true';
+
+    function initSounds() {
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      
+      soundEffects.correct = () => {
+        if (isMuted) return;
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        osc.connect(gain);
+        gain.connect(audioContext.destination);
+        osc.frequency.value = 523.25;
+        gain.gain.setValueAtTime(0.3, audioContext.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+        osc.start(audioContext.currentTime);
+        osc.stop(audioContext.currentTime + 0.3);
+      };
+
+      soundEffects.wrong = () => {
+        if (isMuted) return;
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        osc.connect(gain);
+        gain.connect(audioContext.destination);
+        osc.frequency.value = 130.81;
+        osc.type = 'sawtooth';
+        gain.gain.setValueAtTime(0.3, audioContext.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+        osc.start(audioContext.currentTime);
+        osc.stop(audioContext.currentTime + 0.5);
+      };
+
+      soundEffects.coin = () => {
+        if (isMuted) return;
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        osc.connect(gain);
+        gain.connect(audioContext.destination);
+        osc.frequency.setValueAtTime(800, audioContext.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(1200, audioContext.currentTime + 0.1);
+        gain.gain.setValueAtTime(0.3, audioContext.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+        osc.start(audioContext.currentTime);
+        osc.stop(audioContext.currentTime + 0.2);
+      };
+
+      soundEffects.combo = () => {
+        if (isMuted) return;
+        const notes = [523.25, 659.25, 783.99];
+        notes.forEach((freq, i) => {
+          const osc = audioContext.createOscillator();
+          const gain = audioContext.createGain();
+          osc.connect(gain);
+          gain.connect(audioContext.destination);
+          osc.frequency.value = freq;
+          gain.gain.setValueAtTime(0.2, audioContext.currentTime + i * 0.1);
+          gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + i * 0.1 + 0.2);
+          osc.start(audioContext.currentTime + i * 0.1);
+          osc.stop(audioContext.currentTime + i * 0.1 + 0.2);
+        });
+      };
+
+      soundEffects.gameOver = () => {
+        if (isMuted) return;
+        const notes = [392, 349.23, 293.66, 261.63];
+        notes.forEach((freq, i) => {
+          const osc = audioContext.createOscillator();
+          const gain = audioContext.createGain();
+          osc.connect(gain);
+          gain.connect(audioContext.destination);
+          osc.frequency.value = freq;
+          osc.type = 'sine';
+          gain.gain.setValueAtTime(0.3, audioContext.currentTime + i * 0.15);
+          gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + i * 0.15 + 0.4);
+          osc.start(audioContext.currentTime + i * 0.15);
+          osc.stop(audioContext.currentTime + i * 0.15 + 0.4);
+        });
+      };
+
+      soundEffects.victory = () => {
+        if (isMuted) return;
+        const melody = [523.25, 587.33, 659.25, 783.99];
+        melody.forEach((freq, i) => {
+          const osc = audioContext.createOscillator();
+          const gain = audioContext.createGain();
+          osc.connect(gain);
+          gain.connect(audioContext.destination);
+          osc.frequency.value = freq;
+          osc.type = 'sine';
+          gain.gain.setValueAtTime(0.25, audioContext.currentTime + i * 0.15);
+          gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + i * 0.15 + 0.3);
+          osc.start(audioContext.currentTime + i * 0.15);
+          osc.stop(audioContext.currentTime + i * 0.15 + 0.3);
+        });
+      };
+
+      soundEffects.click = () => {
+        if (isMuted) return;
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        osc.connect(gain);
+        gain.connect(audioContext.destination);
+        osc.frequency.value = 1000;
+        gain.gain.setValueAtTime(0.1, audioContext.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
+        osc.start(audioContext.currentTime);
+        osc.stop(audioContext.currentTime + 0.05);
+      };
+
+      soundEffects.powerup = () => {
+        if (isMuted) return;
+        const notes = [440, 554.37, 659.25, 880];
+        notes.forEach((freq, i) => {
+          const osc = audioContext.createOscillator();
+          const gain = audioContext.createGain();
+          osc.connect(gain);
+          gain.connect(audioContext.destination);
+          osc.frequency.value = freq;
+          osc.type = 'triangle';
+          gain.gain.setValueAtTime(0.2, audioContext.currentTime + i * 0.08);
+          gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + i * 0.08 + 0.15);
+          osc.start(audioContext.currentTime + i * 0.08);
+          osc.stop(audioContext.currentTime + i * 0.08 + 0.15);
+        });
+      };
+
+      soundEffects.achievement = () => {
+        if (isMuted) return;
+        const notes = [523.25, 659.25, 783.99, 1046.50];
+        notes.forEach((freq, i) => {
+          const osc = audioContext.createOscillator();
+          const gain = audioContext.createGain();
+          osc.connect(gain);
+          gain.connect(audioContext.destination);
+          osc.frequency.value = freq;
+          osc.type = 'sine';
+          gain.gain.setValueAtTime(0.3, audioContext.currentTime + i * 0.12);
+          gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + i * 0.12 + 0.4);
+          osc.start(audioContext.currentTime + i * 0.12);
+          osc.stop(audioContext.currentTime + i * 0.12 + 0.4);
+        });
+      };
+    }
+
+    function toggleSound() {
+      isMuted = !isMuted;
+      localStorage.setItem('soundMuted', isMuted);
+      updateSoundButton();
+      if (!isMuted) soundEffects.click();
+    }
+
+    function updateSoundButton() {
+      const btn = document.getElementById('soundToggle');
+      if (btn) {
+        btn.textContent = isMuted ? '🔇 SOM' : '🔊 SOM';
+      }
+    }
+
+    function togglePause() {
+      isPaused = !isPaused;
+      const pauseBtn = document.getElementById('pauseBtn');
+      
+      if (isPaused) {
+        clearInterval(timerInterval);
+        clearInterval(fallingInterval);
+        pauseBtn.textContent = '▶️';
+        pauseBtn.classList.add('paused');
+        
+        if (currentFallingItem) {
+          currentFallingItem.style.animationPlayState = 'paused';
+        }
+        
+        soundEffects.click();
+      } else {
+        pauseBtn.textContent = '⏸️';
+        pauseBtn.classList.remove('paused');
+        
+        if (currentFallingItem) {
+          currentFallingItem.style.animationPlayState = 'running';
+          const currentTop = parseInt(currentFallingItem.style.top);
+          const config = modeConfig[gameState.mode];
+          let speed = config.speed;
+          
+          if (gameState.activeBoosts.slowMotion > 0) {
+            speed = speed / (1 + (gameState.activeBoosts.slowMotion * 0.5));
+          }
+          
+          if (gameState.activeBoosts.stickyGloves) {
+            speed = speed * 0.3;
+          }
+          
+          if (gameState.selectedPet === 'turtle') {
+            speed = speed * 0.8;
+          }
+          
+          animateItemFromPosition(currentFallingItem, speed, currentTop);
+        }
+        
+        startTimer();
+        soundEffects.click();
+      }
+    }
+
+    function animateItemFromPosition(item, speed, startTop) {
+      let top = startTop;
+      fallingInterval = setInterval(() => {
+        if (isPaused) {
+          clearInterval(fallingInterval);
+          return;
+        }
+        top += speed;
+        item.style.top = top + 'px';
+
+        if (top > 280) {
+          clearInterval(fallingInterval);
+          if (!isPaused) {
+            if (item.dataset.special === 'bomb') {
+              handleSpecialItem(item);
+            } else {
+              loseLife();
+            }
+          }
+        }
+      }, 30);
+    }
+
+    function init() {
+      loadAchievements();
+      updateAllDisplays();
+      renderCharacters();
+      renderShop();
+      renderLeaderboard();
+      renderAchievements();
+      renderStats();
+      initSounds();
+      updateSoundButton();
+      checkDailyChallenge();
+      updateDailyChallengeDisplay();
+      calculateLevel();
+    }
+
+    function updateAllDisplays() {
+      document.getElementById('menuCoins').textContent = gameState.coins;
+      document.getElementById('menuXP').textContent = gameState.xp;
+      document.getElementById('menuLevel').textContent = gameState.level;
+      
+      const coinsEl = document.getElementById('coins');
+      if (coinsEl) coinsEl.textContent = gameState.coins;
+      
+      const xpEl = document.getElementById('xpCounter');
+      if (xpEl) xpEl.textContent = gameState.xp;
+      
+      const shopCoinsEl = document.getElementById('shopCoins');
+      if (shopCoinsEl) shopCoinsEl.textContent = gameState.coins;
+    }
+
+    function calculateLevel() {
+      const xpNeeded = gameState.level * 100;
+      if (gameState.xp >= xpNeeded) {
+        gameState.level++;
+        localStorage.setItem('ecoLevel', gameState.level);
+        showNotification(`🎉 LEVEL UP! Nível ${gameState.level}`, '#2ecc71');
+        soundEffects.victory();
+        checkAchievements();
+        unlockCharactersByLevel();
+      }
+    }
+
+    function unlockCharactersByLevel() {
+      characters.forEach(char => {
+        if (gameState.level >= char.unlockLevel && !gameState.unlockedCharacters.includes(char.id)) {
+          gameState.unlockedCharacters.push(char.id);
+          localStorage.setItem('unlockedCharacters', JSON.stringify(gameState.unlockedCharacters));
+          showNotification(`🎭 Personagem Desbloqueado: ${char.name}!`, '#9b59b6');
+        }
+      });
+      renderCharacters();
+    }
+
+    function addXP(amount) {
+      let finalAmount = amount;
+      
+      if (gameState.selectedPet === 'owl') {
+        finalAmount = Math.floor(amount * 1.5);
+      }
+      
+      const charData = characters.find(c => c.id === gameState.selectedCharacter);
+      if (charData && charData.id === 'biologo') {
+        finalAmount = Math.floor(finalAmount * 1.3);
+      }
+      
+      gameState.xp += finalAmount;
+      localStorage.setItem('ecoXP', gameState.xp);
+      updateAllDisplays();
+      calculateLevel();
+    }
+
+    function showGameScreen(screenId) {
+      document.querySelectorAll('.game-screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(screenId).classList.add('active');
+      soundEffects.click();
+      
+      if (screenId === 'shopScreen') {
+        renderShop();
+      } else if (screenId === 'leaderboardScreen') {
+        renderLeaderboard();
+      } else if (screenId === 'achievementsScreen') {
+        renderAchievements();
+      } else if (screenId === 'statsScreen') {
+        renderStats();
+      } else if (screenId === 'menuScreen') {
+        updateDailyChallengeDisplay();
+      }
+    }
+
+    function renderCharacters() {
+      const container = document.getElementById('characterSelect');
+      container.innerHTML = characters.map(char => {
+        const isUnlocked = gameState.unlockedCharacters.includes(char.id);
+        const charLevel = gameState.characterLevels[char.id] || 1;
+        
+        return `
+        <div class="character-card ${gameState.selectedCharacter === char.id ? 'selected' : ''} ${!isUnlocked ? 'locked' : ''}" 
+             onclick="${isUnlocked ? `selectCharacter('${char.id}')` : ''}">
+          ${isUnlocked ? `<div class="character-level">${charLevel}</div>` : ''}
+          <div class="character-avatar">${isUnlocked ? char.emoji : '🔒'}</div>
+          <h4>${isUnlocked ? char.name : `Nível ${char.unlockLevel}`}</h4>
+          <p>${isUnlocked ? char.ability : 'Bloqueado'}</p>
+        </div>
+      `;
+      }).join('');
+    }
+
+    function selectCharacter(id) {
+      gameState.selectedCharacter = id;
+      localStorage.setItem('selectedCharacter', id);
+      renderCharacters();
+      soundEffects.click();
+    }
+
+    function filterShop(category) {
+      gameState.shopFilter = category;
+      renderShop();
+      soundEffects.click();
+    }
+
+    function renderShop() {
+      const grid = document.getElementById('shopGrid');
+      document.getElementById('shopCoins').textContent = gameState.coins;
+      
+      let itemsToShow = shopItems;
+      if (gameState.shopFilter !== 'all') {
+        itemsToShow = shopItems.filter(item => item.category === gameState.shopFilter);
+      }
+      
+      itemsToShow = [...itemsToShow];
+      pets.forEach(pet => {
+        itemsToShow.push({
+          ...pet,
+          type: 'pet',
+          category: 'pets',
+          desc: pet.bonus
+        });
+      });
+      
+      if (gameState.shopFilter === 'pets') {
+        itemsToShow = itemsToShow.filter(item => item.type === 'pet');
+      } else if (gameState.shopFilter !== 'all') {
+        itemsToShow = itemsToShow.filter(item => item.category === gameState.shopFilter);
+      }
+      
+      grid.innerHTML = itemsToShow.map(item => {
+        const count = gameState.itemCounts[item.id] || 0;
+        const isTheme = item.type === 'theme';
+        const isPet = item.type === 'pet';
+        const isUpgrade = item.type === 'upgrade';
+        const isThemeOwned = isTheme && gameState.ownedThemes.includes(item.id);
+        const isPetOwned = isPet && gameState.ownedPets.includes(item.id);
+        const upgradeLevel = isUpgrade ? (gameState.upgrades[item.id] || 0) : 0;
+        
+        let displayText = '';
+        let showStock = false;
+        let canBuy = true;
+        
+        if (isTheme) {
+          if (isThemeOwned) {
+            displayText = '✅ COMPRADO';
+            canBuy = false;
+          } else {
+            displayText = `💰 ${item.price}`;
+          }
+        } else if (isPet) {
+          if (isPetOwned) {
+            displayText = gameState.selectedPet === item.id ? '⭐ EQUIPADO' : '✅ COMPRADO';
+            canBuy = false;
+          } else {
+            displayText = `💰 ${item.price}`;
+          }
+        } else if (isUpgrade) {
+          if (upgradeLevel >= 5) {
+            displayText = '⭐ MAX';
+            canBuy = false;
+          } else {
+            const nextPrice = item.price * (upgradeLevel + 1);
+            displayText = `💰 ${nextPrice} (Nv.${upgradeLevel})`;
+          }
+        } else {
+          if (count > 0) {
+            displayText = `💰 ${item.price}`;
+            showStock = true;
+          } else {
+            displayText = `💰 ${item.price}`;
+          }
+        }
+        
+        return `
+          <div class="shop-item ${(!canBuy) ? 'theme-owned' : ''}" onclick="${canBuy ? `buyItem('${item.id}')` : (isPetOwned && !gameState.selectedPet === item.id ? `equipPet('${item.id}')` : '')}">
+            ${showStock ? `<div class="stock-badge">x${count}</div>` : ''}
+            <div class="icon">${item.icon || item.emoji}</div>
+            <h4>${item.name}</h4>
+            <p>${item.desc}</p>
+            <div class="price">${displayText}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function buyItem(itemId) {
+      const item = shopItems.find(i => i.id === itemId) || pets.find(p => p.id === itemId);
+      
+      if (!item) return;
+      
+      let price = item.price;
+      
+      if (item.type === 'upgrade') {
+        const currentLevel = gameState.upgrades[itemId] || 0;
+        if (currentLevel >= 5) {
+          soundEffects.wrong();
+          return;
+        }
+        price = item.price * (currentLevel + 1);
+      }
+      
+      if (gameState.coins < price) {
+        soundEffects.wrong();
+        showNotification('Moedas insuficientes!', '#e74c3c');
+        return;
+      }
+      
+      if (item.type === 'theme' && gameState.ownedThemes.includes(itemId)) {
+        soundEffects.wrong();
+        return;
+      }
+      
+      if (item.type === 'pet' && gameState.ownedPets.includes(itemId)) {
+        soundEffects.wrong();
+        return;
+      }
+      
+      gameState.coins -= price;
+      
+      if (item.type === 'theme') {
+        gameState.ownedThemes.push(itemId);
+        localStorage.setItem('ownedThemes', JSON.stringify(gameState.ownedThemes));
+        document.body.className = 'theme-' + itemId;
+      } else if (item.type === 'pet') {
+        gameState.ownedPets.push(itemId);
+        localStorage.setItem('ownedPets', JSON.stringify(gameState.ownedPets));
+        gameState.selectedPet = itemId;
+        localStorage.setItem('selectedPet', itemId);
+        showNotification(`🐾 ${item.name} agora te acompanha!`, '#2ecc71');
+      } else if (item.type === 'upgrade') {
+        gameState.upgrades[itemId] = (gameState.upgrades[itemId] || 0) + 1;
+        localStorage.setItem('upgrades', JSON.stringify(gameState.upgrades));
+        showNotification(`⬆️ Upgrade ${item.name} Nv.${gameState.upgrades[itemId]}!`, '#3498db');
+      } else if (item.type === 'stackable') {
+        gameState.itemCounts[itemId] = (gameState.itemCounts[itemId] || 0) + 1;
+        localStorage.setItem('itemCounts', JSON.stringify(gameState.itemCounts));
+      } else {
+        gameState.itemCounts[itemId] = (gameState.itemCounts[itemId] || 0) + 1;
+        localStorage.setItem('itemCounts', JSON.stringify(gameState.itemCounts));
+      }
+      
+      localStorage.setItem('ecoCoins', gameState.coins);
+      updateAllDisplays();
+      renderShop();
+      soundEffects.coin();
+      
+      gameState.stats.shopPurchases = (gameState.stats.shopPurchases || 0) + 1;
+      saveStats();
+      checkAchievements();
+    }
+
+    function equipPet(petId) {
+      if (!gameState.ownedPets.includes(petId)) return;
+      
+      if (gameState.selectedPet === petId) {
+        gameState.selectedPet = null;
+        localStorage.removeItem('selectedPet');
+        showNotification('Pet desequipado', '#95a5a6');
+      } else {
+        gameState.selectedPet = petId;
+        localStorage.setItem('selectedPet', petId);
+        const pet = pets.find(p => p.id === petId);
+        showNotification(`🐾 ${pet.name} equipado!`, '#2ecc71');
+      }
+      
+      soundEffects.click();
+      renderShop();
+    }
+
+    function startGame(mode) {
+      gameState.mode = mode;
+      const config = modeConfig[mode];
+      
+      isPaused = false;
+      gameState.shieldActive = false;
+      gameState.comboNeverResets = false;
+      gameState.weatherActive = null;
+      gameState.sessionStartTime = Date.now();
+      
+      gameState.lives = 3;
+      
+      if (gameState.upgrades.greenHeart > 0) {
+        gameState.lives += gameState.upgrades.greenHeart;
+      }
+      
+      if (config.noLives) {
+        gameState.lives = 999;
+      }
+      
+      if (gameState.itemCounts.extraLife > 0) {
+        gameState.lives += gameState.itemCounts.extraLife;
+        gameState.activeBoosts.extraLife = gameState.itemCounts.extraLife;
+        gameState.itemCounts.extraLife = 0;
+        localStorage.setItem('itemCounts', JSON.stringify(gameState.itemCounts));
+      }
+      
+      const charData = characters.find(c => c.id === gameState.selectedCharacter);
+      if (charData && charData.id === 'capitao') {
+        gameState.lives += 1;
+      }
+      
+      gameState.round = 1;
+      gameState.totalRounds = config.rounds;
+      gameState.timer = config.time;
+      
+      if (gameState.itemCounts.extraTime > 0) {
+        gameState.timer += 5 * gameState.itemCounts.extraTime;
+        gameState.activeBoosts.extraTime = true;
+        gameState.itemCounts.extraTime = 0;
+        localStorage.setItem('itemCounts', JSON.stringify(gameState.itemCounts));
+      }
+      
+      if (gameState.itemCounts.slowMotion > 0) {
+        gameState.activeBoosts.slowMotion = gameState.itemCounts.slowMotion;
+      }
+      
+      if (gameState.itemCounts.doubleCoins > 0) {
+        gameState.activeBoosts.doubleCoins = true;
+        gameState.itemCounts.doubleCoins--;
+        localStorage.setItem('itemCounts', JSON.stringify(gameState.itemCounts));
+      }
+      
+      if (gameState.itemCounts.shieldProtection > 0) {
+        gameState.shieldActive = true;
+        gameState.activeBoosts.shieldProtection = true;
+        gameState.itemCounts.shieldProtection--;
+        localStorage.setItem('itemCounts', JSON.stringify(gameState.itemCounts));
+        updateBoostIndicator('🛡️ Escudo Ativo');
+      }
+      
+      if (gameState.itemCounts.timeFreeze > 0) {
+        gameState.timer += 10;
+        gameState.activeBoosts.timeFreeze = true;
+        gameState.itemCounts.timeFreeze--;
+        localStorage.setItem('itemCounts', JSON.stringify(gameState.itemCounts));
+      }
+      
+      if (gameState.itemCounts.luckyClover > 0) {
+        gameState.comboNeverResets = true;
+        gameState.activeBoosts.luckyClover = true;
+        gameState.itemCounts.luckyClover--;
+        localStorage.setItem('itemCounts', JSON.stringify(gameState.itemCounts));
+        updateBoostIndicator('🍀 Combo Infinito');
+      }
+      
+      if (gameState.itemCounts.magneticBins > 0) {
+        gameState.activeBoosts.magneticBins = true;
+        gameState.itemCounts.magneticBins--;
+        localStorage.setItem('itemCounts', JSON.stringify(gameState.itemCounts));
+      }
+      
+      if (gameState.itemCounts.rainbowPower > 0) {
+        gameState.activeBoosts.rainbowPower = true;
+        gameState.itemCounts.rainbowPower--;
+        localStorage.setItem('itemCounts', JSON.stringify(gameState.itemCounts));
+        updateBoostIndicator('🌈 Pontos x3');
+      }
+      
+      if (gameState.itemCounts.xRayGlasses > 0) {
+        gameState.activeBoosts.xRayGlasses = true;
+        gameState.itemCounts.xRayGlasses--;
+        localStorage.setItem('itemCounts', JSON.stringify(gameState.itemCounts));
+        updateBoostIndicator('👓 Visão de Raio-X');
+      }
+      
+      if (gameState.itemCounts.stickyGloves > 0) {
+        gameState.activeBoosts.stickyGloves = true;
+        gameState.itemCounts.stickyGloves--;
+        localStorage.setItem('itemCounts', JSON.stringify(gameState.itemCounts));
+      }
+      
+      if (gameState.itemCounts.vacuumCleaner > 0) {
+        gameState.activeBoosts.vacuumCleaner = gameState.itemCounts.vacuumCleaner;
+        gameState.itemCounts.vacuumCleaner = 0;
+        localStorage.setItem('itemCounts', JSON.stringify(gameState.itemCounts));
+      }
+      
+      gameState.combo = 1;
+      gameState.score = 0;
+      
+      if (config.limitedBins) {
+        gameState.binCapacities = {
+          plastico: config.binCapacity,
+          metal: config.binCapacity,
+          organico: config.binCapacity,
+          vidro: config.binCapacity,
+          papel: config.binCapacity,
+          especial: config.binCapacity
+        };
+      }
+      
+      if (Math.random() < 0.3) {
+        const weathers = ['storm', 'fog', 'rain'];
+        gameState.weatherActive = weathers[Math.floor(Math.random() * weathers.length)];
+      }
+
+      soundEffects.click();
+      showGameScreen('gameScreen');
+      setupBins();
+      setupPet();
+      updateHUD();
+      startRound();
+      
+      gameState.stats.totalGamesPlayed++;
+      saveStats();
+    }
+
+    function setupPet() {
+      const petContainer = document.getElementById('petContainer');
+      if (gameState.selectedPet && pets.find(p => p.id === gameState.selectedPet)) {
+        const pet = pets.find(p => p.id === gameState.selectedPet);
+        petContainer.textContent = pet.emoji;
+        petContainer.style.display = 'block';
+      } else {
+        petContainer.style.display = 'none';
+      }
+    }
+
+    function updateBoostIndicator(text) {
+      const indicator = document.getElementById('boostIndicator');
+      const boostText = document.getElementById('boostText');
+      if (indicator && boostText) {
+        boostText.textContent = text;
+        indicator.style.display = 'flex';
+      }
+    }
+
+    function setupBins() {
+      const container = document.getElementById('binsContainer');
+      const bins = [
+        { type: 'plastico', color: '#e74c3c', icon: '🔴', label: 'PLÁSTICO' },
+        { type: 'metal', color: '#f1c40f', icon: '🟡', label: 'METAL' },
+        { type: 'organico', color: '#8b4513', icon: '🟤', label: 'ORGÂNICO' },
+        { type: 'vidro', color: '#2ecc71', icon: '🟢', label: 'VIDRO' },
+        { type: 'papel', color: '#3498db', icon: '🔵', label: 'PAPEL' },
+        { type: 'especial', color: '#9b59b6', icon: '🟣', label: 'ESPECIAL' }
+      ];
+
+      container.innerHTML = bins.map(bin => {
+        const capacity = gameState.binCapacities[bin.type];
+        const capacityText = capacity !== undefined ? `<div style="font-size: 0.3em; color: white;">${capacity}/${modeConfig[gameState.mode].binCapacity}</div>` : '';
+        const magneticClass = gameState.activeBoosts.magneticBins ? 'magnetic' : '';
+        
+        return `
+        <div class="bin ${magneticClass}" data-type="${bin.type}" style="background: ${bin.color};" 
+             onclick="dropInBin('${bin.type}')">
+          <div>${bin.icon}</div>
+          <div class="bin-label">${bin.label}</div>
+          ${capacityText}
+        </div>
+      `;
+      }).join('');
+    }
+
+    function startRound() {
+      if (gameState.mode === 'contrarrelogio' && gameState.timer <= 0) {
+        endGame(true);
+        return;
+      }
+      
+      if (gameState.round > gameState.totalRounds && gameState.mode !== 'contrarrelogio' && gameState.mode !== 'zen') {
+        endGame(true);
+        return;
+      }
+
+      updateHUD();
+      spawnItem();
+      startTimer();
+    }
+
+    function spawnItem() {
+      if (currentFallingItem) {
+        currentFallingItem.remove();
+      }
+
+      const config = modeConfig[gameState.mode];
+      const isSpecial = Math.random() < config.specialChance;
+      
+      if (gameState.selectedPet === 'panda') {
+        const boostedChance = config.specialChance * 1.5;
+        if (Math.random() < boostedChance) {
+          isSpecial = true;
+        }
+      }
+      
+      let item;
+      
+      if (isSpecial) {
+        const specialKeys = Object.keys(specialItems);
+        const randomSpecial = specialKeys[Math.floor(Math.random() * specialKeys.length)];
+        const specialData = specialItems[randomSpecial];
+        
+        item = document.createElement('div');
+        item.className = 'falling-item special';
+        item.textContent = specialData.emoji;
+        item.dataset.special = randomSpecial;
+        item.style.background = specialData.color;
+      } else {
+        const types = Object.keys(trashTypes);
+        const randomType = types[Math.floor(Math.random() * types.length)];
+        const items = trashTypes[randomType];
+        const randomItem = items[Math.floor(Math.random() * items.length)];
+
+        item = document.createElement('div');
+        item.className = 'falling-item';
+        item.textContent = randomItem;
+        item.dataset.type = randomType;
+        
+        if (gameState.activeBoosts.xRayGlasses) {
+          const typeColors = {
+            plastico: '#e74c3c',
+            metal: '#f1c40f',
+            organico: '#8b4513',
+            vidro: '#2ecc71',
+            papel: '#3498db',
+            especial: '#9b59b6'
+          };
+          item.style.boxShadow = `0 0 20px ${typeColors[randomType]}`;
+        }
+        
+        if (gameState.upgrades.ecoVision > 0) {
+          item.style.filter = `brightness(${1 + gameState.upgrades.ecoVision * 0.1})`;
+        }
+      }
+
+      item.style.left = Math.random() * (document.getElementById('gameArea').offsetWidth - 60) + 'px';
+      item.style.top = '0px';
+
+      if (gameState.selectedPet === 'parrot' && !isSpecial) {
+        const typeIcons = {
+          plastico: '🔴',
+          metal: '🟡',
+          organico: '🟤',
+          vidro: '🟢',
+          papel: '🔵',
+          especial: '🟣'
+        };
+        const hint = document.createElement('div');
+        hint.textContent = typeIcons[item.dataset.type];
+        hint.style.position = 'absolute';
+        hint.style.top = '-30px';
+        hint.style.left = '50%';
+        hint.style.transform = 'translateX(-50%)';
+        hint.style.fontSize = '1.2em';
+        item.appendChild(hint);
+      }
+
+      document.getElementById('gameArea').appendChild(item);
+      currentFallingItem = item;
+
+      item.addEventListener('click', () => {
+        if (item.dataset.special) {
+          handleSpecialItem(item);
+        }
+      });
+
+      let speed = config.speed;
+      
+      if (gameState.mode === 'contrarrelogio' && config.speedIncrease) {
+        const timeElapsed = 60 - gameState.timer;
+        speed = config.speed + (timeElapsed / 10);
+      }
+      
+      if (gameState.activeBoosts.slowMotion > 0) {
+        speed = speed / (1 + (gameState.activeBoosts.slowMotion * 0.5));
+      }
+      
+      if (gameState.activeBoosts.stickyGloves) {
+        speed = speed * 0.3;
+      }
+      
+      if (gameState.selectedPet === 'turtle') {
+        speed = speed * 0.8;
+      }
+      
+      if (gameState.upgrades.reflexSpeed > 0) {
+        speed = speed * (1 - gameState.upgrades.reflexSpeed * 0.05);
+      }
+      
+      const charData = characters.find(c => c.id === gameState.selectedCharacter);
+      if (charData && charData.id === 'mago') {
+        speed = speed * 0.9;
+      }
+      if (charData && charData.id === 'ninja') {
+        speed = speed * 0.7;
+      }
+
+      animateItem(item, speed);
+    }
+
+    function handleSpecialItem(item) {
+      const specialType = item.dataset.special;
+      const specialData = specialItems[specialType];
+      
+      clearInterval(fallingInterval);
+      item.remove();
+      currentFallingItem = null;
+      
+      soundEffects.powerup();
+      
+      switch(specialData.effect) {
+        case 'points5x':
+          showNotification('⭐ PONTOS x5 por 10 segundos!', '#FFD700');
+          const oldRainbow = gameState.activeBoosts.rainbowPower;
+          gameState.activeBoosts.rainbowPower = true;
+          setTimeout(() => {
+            if (!oldRainbow) gameState.activeBoosts.rainbowPower = false;
+          }, 10000);
+          break;
+          
+        case 'lose2lives':
+          showNotification('💣 BOOM! -2 Vidas!', '#000000');
+          if (gameState.shieldActive) {
+            gameState.shieldActive = false;
+            showNotification('🛡️ Escudo bloqueou a bomba!', '#3498db');
+          } else {
+            gameState.lives -= 2;
+            if (gameState.lives < 0) gameState.lives = 0;
+            soundEffects.wrong();
+          }
+          updateHUD();
+          if (gameState.lives <= 0) {
+            endGame(false);
+            return;
+          }
+          break;
+          
+        case 'randomCoins':
+          const coins = Math.floor(Math.random() * 150) + 50;
+          gameState.coins += coins;
+          localStorage.setItem('ecoCoins', gameState.coins);
+          updateAllDisplays();
+          showNotification(`🎁 +${coins} Moedas!`, '#FF69B4');
+          soundEffects.coin();
+          break;
+          
+        case 'auto5':
+          showNotification('⚡ Auto-acerto próximos 5 itens!', '#FFFF00');
+          let autoCount = 0;
+          const autoInterval = setInterval(() => {
+            if (autoCount >= 5 || !currentFallingItem || currentFallingItem.dataset.special) {
+              clearInterval(autoInterval);
+              return;
+            }
+            if (currentFallingItem && currentFallingItem.dataset.type) {
+              dropInBin(currentFallingItem.dataset.type);
+              autoCount++;
+            }
+          }, 1000);
+          break;
+          
+        case 'heal1':
+          gameState.lives++;
+          updateHUD();
+          showNotification('💖 +1 Vida!', '#FF1493');
+          soundEffects.coin();
+          break;
+          
+        case 'time10':
+          gameState.timer += 10;
+          document.getElementById('timer').textContent = gameState.timer;
+          showNotification('⏳ +10 Segundos!', '#DEB887');
+          soundEffects.coin();
+          break;
+      }
+      
+      setTimeout(() => nextRound(), 500);
+    }
+
+    function animateItem(item, speed) {
+      let top = 0;
+      fallingInterval = setInterval(() => {
+        if (isPaused) return;
+        top += speed;
+        item.style.top = top + 'px';
+        
+        if (gameState.weatherActive === 'storm') {
+          const sway = Math.sin(top / 20) * 15;
+          item.style.left = (parseInt(item.style.left) + sway/10) + 'px';
+        }
+        
+        if (gameState.weatherActive === 'fog') {
+          item.style.opacity = 0.6;
+        }
+
+        if (top > 280) {
+          clearInterval(fallingInterval);
+          if (item.dataset.special === 'bomb') {
+            handleSpecialItem(item);
+          } else {
+            loseLife();
+          }
+        }
+      }, 30);
+    }
+
+    function dropInBin(binType) {
+      if (!currentFallingItem || isPaused) return;
+      
+      if (currentFallingItem.dataset.special) {
+        return;
+      }
+
+      const itemType = currentFallingItem.dataset.type;
+      clearInterval(fallingInterval);
+      
+      if (gameState.binCapacities[binType] !== undefined) {
+        if (gameState.binCapacities[binType] <= 0) {
+          soundEffects.wrong();
+          showNotification(`Lixeira ${binType} cheia!`, '#e74c3c');
+          loseLife();
+          return;
+        }
+      }
+
+      if (itemType === binType) {
+        soundEffects.correct();
+        
+        const bin = document.querySelector(`.bin[data-type="${binType}"]`);
+        bin.classList.add('highlight');
+        setTimeout(() => bin.classList.remove('highlight'), 500);
+        
+        if (gameState.binCapacities[binType] !== undefined) {
+          gameState.binCapacities[binType]--;
+          setupBins();
+        }
+
+        gameState.combo++;
+        
+        if (gameState.combo > gameState.stats.highestCombo) {
+          gameState.stats.highestCombo = gameState.combo;
+        }
+        
+        let points = 10 * gameState.combo;
+        
+        if (gameState.activeBoosts.rainbowPower) {
+          points *= 3;
+        }
+        
+        const charData = characters.find(c => c.id === gameState.selectedCharacter);
+        if (charData && charData.id === 'futurista') {
+          points = Math.floor(points * 1.2);
+        }
+        
+        gameState.score += points;
+        
+        let coinsEarned = Math.ceil(points / 10);
+        
+        if (gameState.activeBoosts.doubleCoins) {
+          coinsEarned *= 2;
+        }
+        
+        if (gameState.selectedPet === 'dog') {
+          coinsEarned = Math.floor(coinsEarned * 1.1);
+        }
+        
+        if (charData && charData.id === 'futurista') {
+          coinsEarned = Math.floor(coinsEarned * 1.2);
+        }
+        
+        gameState.coins += coinsEarned;
+        gameState.stats.totalCoinsEarned += coinsEarned;
+
+        if (gameState.combo > 2) {
+          soundEffects.combo();
+          showCombo();
+        } else {
+          soundEffects.coin();
+        }
+        
+        createParticles(currentFallingItem);
+
+        localStorage.setItem('ecoCoins', gameState.coins);
+        updateAllDisplays();
+        
+        gameState.stats.totalItemsRecycled++;
+        gameState.stats.totalCorrectSorts++;
+        gameState.stats.itemFrequency[itemType] = (gameState.stats.itemFrequency[itemType] || 0) + 1;
+        
+        if (gameState.dailyChallenge && !gameState.dailyChallenge.completed) {
+          updateDailyChallengeProgress(itemType);
+        }
+        
+        saveStats();
+        
+        currentFallingItem.remove();
+        currentFallingItem = null;
+
+        nextRound();
+      } else {
+        soundEffects.wrong();
+        loseLife();
+      }
+    }
+
+    function createParticles(item) {
+      const colors = ['#2ecc71', '#3498db', '#f1c40f', '#e74c3c', '#9b59b6'];
+      for (let i = 0; i < 8; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.textContent = '✨';
+        particle.style.left = item.style.left;
+        particle.style.top = item.style.top;
+        particle.style.color = colors[Math.floor(Math.random() * colors.length)];
+        particle.style.fontSize = '1.5em';
+        particle.style.transform = `rotate(${Math.random() * 360}deg) translateX(${Math.random() * 100 - 50}px)`;
+        document.getElementById('gameArea').appendChild(particle);
+        setTimeout(() => particle.remove(), 2000);
+      }
+    }
+
+    function showCombo() {
+      const combo = document.createElement('div');
+      combo.className = 'combo-indicator';
+      combo.textContent = `COMBO x${gameState.combo}! 🔥`;
+      document.getElementById('gameArea').appendChild(combo);
+      setTimeout(() => combo.remove(), 1000);
+    }
+
+    function loseLife() {
+      if (gameState.shieldActive) {
+        gameState.shieldActive = false;
+        soundEffects.coin();
+        showNotification('🛡️ Escudo Usado!', '#3498db');
+        setTimeout(() => {
+          const indicator = document.getElementById('boostIndicator');
+          if (indicator) indicator.style.display = 'none';
+        }, 2000);
+      } else {
+        gameState.lives--;
+        gameState.stats.totalWrongSorts++;
+        
+        if (!gameState.comboNeverResets && gameState.selectedPet !== 'fox') {
+          const charData = characters.find(c => c.id === gameState.selectedCharacter);
+          if (!(charData && charData.id === 'cientista')) {
+            gameState.combo = 1;
+          }
+        }
+      }
+      
+      if (currentFallingItem) {
+        currentFallingItem.remove();
+        currentFallingItem = null;
+      }
+      clearInterval(fallingInterval);
+
+      updateHUD();
+      saveStats();
+
+      if (gameState.lives <= 0) {
+        endGame(false);
+      } else {
+        nextRound();
+      }
+    }
+
+    function nextRound() {
+      clearInterval(timerInterval);
+      gameState.round++;
+      
+      const config = modeConfig[gameState.mode];
+      gameState.timer = config.time;
+      
+      if (gameState.activeBoosts.extraTime && gameState.round <= 2) {
+        gameState.timer += 5;
+      }
+      
+      if (gameState.activeBoosts.timeFreeze && gameState.round <= 3) {
+        gameState.timer += 5;
+      }
+
+      setTimeout(() => startRound(), 500);
+    }
+
+    function startTimer() {
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        if (isPaused) return;
+        gameState.timer--;
+        document.getElementById('timer').textContent = gameState.timer;
+
+        if (gameState.timer <= 0) {
+          clearInterval(timerInterval);
+          if (!isPaused) loseLife();
+        }
+      }, 1000);
+    }
+
+    function updateHUD() {
+      document.getElementById('hearts').innerHTML = '❤️'.repeat(Math.min(gameState.lives, 10));
+      document.getElementById('round').textContent = gameState.round;
+      document.getElementById('totalRounds').textContent = gameState.totalRounds === 999 ? '∞' : gameState.totalRounds;
+      document.getElementById('timer').textContent = gameState.timer === 999 ? '∞' : gameState.timer;
+      document.getElementById('combo').textContent = gameState.combo;
+      
+      const progress = gameState.totalRounds === 999 ? 0 : (gameState.round / gameState.totalRounds) * 100;
+      const progressBar = document.getElementById('progressBar');
+      progressBar.style.width = progress + '%';
+      progressBar.textContent = gameState.totalRounds === 999 ? '∞' : Math.round(progress) + '%';
+    }
+
+    function endGame(completed) {
+      clearInterval(timerInterval);
+      clearInterval(fallingInterval);
+      
+      const playTime = Math.floor((Date.now() - gameState.sessionStartTime) / 1000);
+      gameState.stats.totalPlayTime += playTime;
+      
+      isPaused = false;
+      
+      if (gameState.activeBoosts.slowMotion > 0) {
+        gameState.itemCounts.slowMotion = (gameState.itemCounts.slowMotion || 0) + gameState.activeBoosts.slowMotion;
+        gameState.activeBoosts.slowMotion = 0;
+        localStorage.setItem('itemCounts', JSON.stringify(gameState.itemCounts));
+      }
+      
+      Object.keys(gameState.activeBoosts).forEach(key => {
+        gameState.activeBoosts[key] = key === 'slowMotion' ? 0 : false;
+      });
+
+      if (completed) {
+        soundEffects.victory();
+      } else {
+        soundEffects.gameOver();
+      }
+
+      const timeBonus = gameState.timer > 0 && gameState.timer !== 999 ? gameState.timer * 5 : 0;
+      const finalScore = gameState.score + timeBonus;
+
+      document.getElementById('finalScore').textContent = finalScore.toLocaleString('pt-BR');
+      document.getElementById('coinsEarned').textContent = gameState.coins.toLocaleString('pt-BR');
+      
+      const xpGained = Math.floor(finalScore / 10);
+      addXP(xpGained);
+      document.getElementById('xpEarned').textContent = xpGained;
+
+      saveScore(finalScore);
+      
+      gameState.characterLevels[gameState.selectedCharacter] = (gameState.characterLevels[gameState.selectedCharacter] || 1) + 1;
+      localStorage.setItem('characterLevels', JSON.stringify(gameState.characterLevels));
+
+      const rank = getRank(finalScore);
+      document.getElementById('rankingMessage').innerHTML = `
+        <div style="font-size: 1.8em; margin-top: 20px; color: #fff;">
+          ${rank.emoji} ${rank.title}
+        </div>
+      `;
+
+      if (completed) {
+        document.getElementById('gameOverTitle').textContent = '🎉 Parabéns! Você Venceu!';
+        document.getElementById('gameOverTitle').style.color = '#2ecc71';
+        
+        if (gameState.mode === 'facil' && gameState.stats.totalWrongSorts === 0) {
+          gameState.stats.perfectRounds++;
+        }
+      } else {
+        document.getElementById('gameOverTitle').textContent = '💔 Game Over!';
+        document.getElementById('gameOverTitle').style.color = '#e74c3c';
+      }
+      
+      saveStats();
+      const newAchievements = checkAchievements();
+      displayNewAchievements(newAchievements);
+
+      showGameScreen('gameOverScreen');
+    }
+
+    function getRank(score) {
+      if (score >= 10000) return { emoji: '👑', title: 'DEUS DA RECICLAGEM' };
+      if (score >= 5000) return { emoji: '⭐', title: 'MESTRE SUPREMO' };
+      if (score >= 2000) return { emoji: '♻️', title: 'LENDA DA RECICLAGEM' };
+      if (score >= 1000) return { emoji: '🌳', title: 'GUARDIÃO DO PLANETA' };
+      if (score >= 500) return { emoji: '🌿', title: 'ECO-GUERREIRO' };
+      return { emoji: '🌱', title: 'INICIANTE VERDE' };
+    }
+
+    function saveScore(score) {
+      let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+      const char = characters.find(c => c.id === gameState.selectedCharacter);
+      
+      leaderboard.push({
+        name: char.name,
+        emoji: char.emoji,
+        score: score,
+        date: new Date().toLocaleDateString('pt-BR'),
+        mode: gameState.mode
+      });
+
+      leaderboard.sort((a, b) => b.score - a.score);
+      
+      localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+    }
+
+    function showLeaderboard(mode) {
+      gameState.currentLeaderboardMode = mode;
+      soundEffects.click();
+      
+      const buttons = ['leaderboardFacil', 'leaderboardMedio', 'leaderboardDificil', 'leaderboardTodos'];
+      buttons.forEach(btnId => {
+        const btn = document.getElementById(btnId);
+        if (btn) {
+          btn.style.opacity = '0.7';
+        }
+      });
+      
+      const activeBtn = mode === 'facil' ? 'leaderboardFacil' : 
+                       mode === 'medio' ? 'leaderboardMedio' : 
+                       mode === 'dificil' ? 'leaderboardDificil' : 'leaderboardTodos';
+      const activeBtnEl = document.getElementById(activeBtn);
+      if (activeBtnEl) {
+        activeBtnEl.style.opacity = '1';
+      }
+      
+      const titles = {
+        facil: '🌱 Modo: FÁCIL',
+        medio: '🌳 Modo: MÉDIO',
+        dificil: '🔥 Modo: DIFÍCIL',
+        todos: '⭐ Modo: TODOS'
+      };
+      document.getElementById('leaderboardModeTitle').textContent = titles[mode];
+      
+      renderLeaderboard(mode);
+    }
+
+    function renderLeaderboard(filterMode = null) {
+      const mode = filterMode || gameState.currentLeaderboardMode;
+      let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+      const list = document.getElementById('leaderboardList');
+
+      if (mode !== 'todos') {
+        leaderboard = leaderboard.filter(entry => entry.mode === mode);
+      }
+
+      leaderboard.sort((a, b) => b.score - a.score);
+      leaderboard = leaderboard.slice(0, 10);
+
+      if (leaderboard.length === 0) {
+        list.innerHTML = `
+          <div style="text-align: center; padding: 40px; color: #fff;">
+            <div style="font-size: 3em; margin-bottom: 10px;">🏆</div>
+            <p>Nenhum registro ainda neste modo.</p>
+            <p style="font-size: 0.9em;">Seja o primeiro a jogar!</p>
+          </div>
+        `;
+        return;
+      }
+
+      const getMedalColor = (index) => {
+        if (index === 0) return '#FFD700';
+        if (index === 1) return '#C0C0C0';
+        if (index === 2) return '#CD7F32';
+        return '#95a5a6';
+      };
+
+      const getMedalEmoji = (index) => {
+        if (index === 0) return '🥇';
+        if (index === 1) return '🥈';
+        if (index === 2) return '🥉';
+        return '🏅';
+      };
+
+      const modeLabels = {
+        facil: '🌱 FÁCIL',
+        medio: '🌳 MÉDIO',
+        dificil: '🔥 DIFÍCIL',
+        contrarrelogio: '⚡ CONTRARRELÓGIO',
+        zen: '🧘 ZEN',
+        puzzle: '🧩 PUZZLE'
+      };
+
+      list.innerHTML = leaderboard.map((entry, idx) => `
+        <div class="leaderboard-item" style="border-left: 5px solid ${getMedalColor(idx)};">
+          <div style="display: flex; align-items: center; gap: 15px;">
+            <span class="leaderboard-rank" style="color: ${getMedalColor(idx)};">${getMedalEmoji(idx)}</span>
+            <span style="font-size: 2em;">${entry.emoji}</span>
+            <div>
+              <div style="font-weight: bold; color: #fff;">${entry.name}</div>
+              <div style="font-size: 0.9em; color: #ddd;">
+                ${entry.date} • ${modeLabels[entry.mode] || entry.mode.toUpperCase()}
+              </div>
+            </div>
+          </div>
+          <div style="font-size: 1.5em; font-weight: bold; color: #f39c12;">
+            ${entry.score.toLocaleString('pt-BR')} pts
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function clearLeaderboard() {
+      if (confirm('⚠️ Tem certeza que deseja limpar TODO o ranking?\n\nEsta ação não pode ser desfeita e apagará todos os recordes salvos!')) {
+        localStorage.removeItem('leaderboard');
+        soundEffects.wrong();
+        setTimeout(() => {
+          renderLeaderboard(gameState.currentLeaderboardMode);
+          showNotification('✅ Ranking limpo com sucesso!', '#2ecc71');
+        }, 100);
+      } else {
+        soundEffects.click();
+      }
+    }
+
+    function renderAchievements() {
+      const container = document.getElementById('achievementsList');
+      const unlockedCount = gameState.achievements.length;
+      document.getElementById('achievementCount').textContent = unlockedCount;
+      
+      container.innerHTML = achievements.map(ach => {
+        const isUnlocked = gameState.achievements.includes(ach.id);
+        return `
+          <div class="achievement-badge" style="opacity: ${isUnlocked ? '1' : '0.4'}; background: ${isUnlocked ? 'linear-gradient(135deg, #2ecc71, #27ae60)' : 'linear-gradient(135deg, #95a5a6, #7f8c8d)'};">
+            <div style="font-size: 2em;">${ach.icon}</div>
+            <div style="font-weight: bold; margin-top: 5px;">${ach.name}</div>
+            <div style="font-size: 0.85em; margin-top: 3px;">${ach.desc}</div>
+            ${isUnlocked ? '<div style="margin-top: 5px;">✅ DESBLOQUEADA</div>' : '<div style="margin-top: 5px;">🔒 Bloqueada</div>'}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function checkAchievements() {
+      const newAchievements = [];
+      
+      achievements.forEach(ach => {
+        if (gameState.achievements.includes(ach.id)) return;
+        
+        let unlocked = false;
+        
+        switch(ach.requirement) {
+          case 'completeEasy':
+            if (gameState.stats.totalGamesPlayed > 0 && gameState.mode === 'facil') unlocked = true;
+            break;
+          case 'combo100':
+            if (gameState.stats.highestCombo >= 100) unlocked = true;
+            break;
+          case 'coins10k':
+            if (gameState.stats.totalCoinsEarned >= 10000) unlocked = true;
+            break;
+          case 'fastRound':
+            if (gameState.timer > 10 && gameState.round > 1) unlocked = true;
+            break;
+          case 'perfectHard':
+            if (gameState.mode === 'dificil' && gameState.stats.totalWrongSorts === 0) unlocked = true;
+            break;
+          case 'combo50':
+            if (gameState.stats.highestCombo >= 50) unlocked = true;
+            break;
+          case 'recycle1000':
+            if (gameState.stats.totalItemsRecycled >= 1000) unlocked = true;
+            break;
+          case 'buy20':
+            if ((gameState.stats.shopPurchases || 0) >= 20) unlocked = true;
+            break;
+          case 'level10':
+            if (gameState.level >= 10) unlocked = true;
+            break;
+          case 'level25':
+            if (gameState.level >= 25) unlocked = true;
+            break;
+          case 'level50':
+            if (gameState.level >= 50) unlocked = true;
+            break;
+          case 'perfect50':
+            if (gameState.combo >= 50) unlocked = true;
+            break;
+          case 'playTime5h':
+            if (gameState.stats.totalPlayTime >= 18000) unlocked = true;
+            break;
+          case 'hold5k':
+            if (gameState.coins >= 5000) unlocked = true;
+            break;
+          case 'allChars':
+            if (gameState.unlockedCharacters.length >= characters.length) unlocked = true;
+            break;
+          case 'allPets':
+            if (gameState.ownedPets.length >= pets.length) unlocked = true;
+            break;
+          case 'allThemes':
+            const totalThemes = shopItems.filter(i => i.type === 'theme').length;
+            if (gameState.ownedThemes.length >= totalThemes) unlocked = true;
+            break;
+          case 'daily10':
+            if ((gameState.stats.dailyChallengesCompleted || 0) >= 10) unlocked = true;
+            break;
+          case 'plastic200':
+            if ((gameState.stats.itemFrequency.plastico || 0) >= 200) unlocked = true;
+            break;
+          case 'metal200':
+            if ((gameState.stats.itemFrequency.metal || 0) >= 200) unlocked = true;
+            break;
+          case 'organic200':
+            if ((gameState.stats.itemFrequency.organico || 0) >= 200) unlocked = true;
+            break;
+          case 'glass200':
+            if ((gameState.stats.itemFrequency.vidro || 0) >= 200) unlocked = true;
+            break;
+          case 'paper200':
+            if ((gameState.stats.itemFrequency.papel || 0) >= 200) unlocked = true;
+            break;
+          case 'special100':
+            if ((gameState.stats.itemFrequency.especial || 0) >= 100) unlocked = true;
+            break;
+          case 'recycle5000':
+            if (gameState.stats.totalItemsRecycled >= 5000) unlocked = true;
+            break;
+          case 'score100k':
+            if (gameState.score >= 100000) unlocked = true;
+            break;
+        }
+        
+        if (unlocked) {
+          gameState.achievements.push(ach.id);
+          newAchievements.push(ach);
+          soundEffects.achievement();
+          
+          const reward = 100;
+          gameState.coins += reward;
+          localStorage.setItem('ecoCoins', gameState.coins);
+        }
+      });
+      
+      if (newAchievements.length > 0) {
+        localStorage.setItem('achievements', JSON.stringify(gameState.achievements));
+        updateAllDisplays();
+      }
+      
+      return newAchievements;
+    }
+
+    function displayNewAchievements(newAchievements) {
+      const container = document.getElementById('newAchievements');
+      if (newAchievements.length === 0) {
+        container.innerHTML = '';
+        return;
+      }
+      
+      container.innerHTML = `
+        <div style="background: linear-gradient(135deg, #2ecc71, #27ae60); padding: 15px; border-radius: 15px; margin-top: 20px;">
+          <h4 style="color: white; margin-bottom: 10px;">🏅 CONQUISTAS DESBLOQUEADAS!</h4>
+          ${newAchievements.map(ach => `
+            <div style="background: rgba(255,255,255,0.2); padding: 10px; border-radius: 10px; margin: 5px 0;">
+              <span style="font-size: 1.5em;">${ach.icon}</span>
+              <strong>${ach.name}</strong> - ${ach.desc}
+              <div style="color: #FFD700; margin-top: 5px;">💰 +100 Moedas</div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function loadAchievements() {
+      const saved = localStorage.getItem('achievements');
+      if (saved) {
+        gameState.achievements = JSON.parse(saved);
+      }
+    }
+
+    function renderStats() {
+      const statsGrid = document.getElementById('statsGrid');
+      const impactStats = document.getElementById('impactStats');
+      
+      const favoriteItem = Object.keys(gameState.stats.itemFrequency).reduce((a, b) => 
+        (gameState.stats.itemFrequency[a] || 0) > (gameState.stats.itemFrequency[b] || 0) ? a : b
+      , 'nenhum');
+      
+      const favoriteEmoji = favoriteItem !== 'nenhum' ? trashTypes[favoriteItem][0] : '❓';
+      
+      const accuracy = gameState.stats.totalCorrectSorts + gameState.stats.totalWrongSorts > 0 
+        ? Math.round((gameState.stats.totalCorrectSorts / (gameState.stats.totalCorrectSorts + gameState.stats.totalWrongSorts)) * 100) 
+        : 0;
+      
+      const hours = Math.floor(gameState.stats.totalPlayTime / 3600);
+      const minutes = Math.floor((gameState.stats.totalPlayTime % 3600) / 60);
+      
+      statsGrid.innerHTML = `
+        <div class="stat-card">
+          <div class="stat-value">${gameState.stats.totalItemsRecycled}</div>
+          <div class="stat-label">Itens Reciclados</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${gameState.stats.totalGamesPlayed}</div>
+          <div class="stat-label">Partidas Jogadas</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${accuracy}%</div>
+          <div class="stat-label">Taxa de Acerto</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">x${gameState.stats.highestCombo}</div>
+          <div class="stat-label">Maior Combo</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${gameState.stats.totalCoinsEarned.toLocaleString('pt-BR')}</div>
+          <div class="stat-label">Moedas Ganhas</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${hours}h ${minutes}m</div>
+          <div class="stat-label">Tempo Jogado</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${favoriteEmoji}</div>
+          <div class="stat-label">Item Favorito</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${gameState.stats.perfectRounds || 0}</div>
+          <div class="stat-label">Rodadas Perfeitas</div>
+        </div>
+      `;
+      
+      const trees = Math.floor(gameState.stats.totalItemsRecycled / 100);
+      const water = Math.floor(gameState.stats.totalItemsRecycled * 0.5);
+      const energy = Math.floor(gameState.stats.totalItemsRecycled * 0.2);
+      
+      impactStats.innerHTML = `
+        <div style="color: #ddd; text-align: center;">
+          <p style="margin: 10px 0; font-size: 1.1em;">🌳 Você ajudou a salvar <strong style="color: #2ecc71;">${trees} árvores</strong></p>
+          <p style="margin: 10px 0; font-size: 1.1em;">💧 Economizou <strong style="color: #3498db;">${water}L de água</strong></p>
+          <p style="margin: 10px 0; font-size: 1.1em;">⚡ Poupou energia para <strong style="color: #f39c12;">${energy} dias de luz</strong></p>
+          <p style="margin: 20px 0; font-size: 0.9em; color: #95a5a6;">Continue reciclando e fazendo a diferença! 🌍</p>
+        </div>
+      `;
+    }
+
+    function saveStats() {
+      localStorage.setItem('gameStats', JSON.stringify(gameState.stats));
+    }
+
+    function resetAllData() {
+      if (confirm('⚠️ ATENÇÃO! Isso vai apagar TODOS os seus dados:\n\n- Moedas, XP e Nível\n- Conquistas\n- Estatísticas\n- Ranking\n- Itens comprados\n- Personagens desbloqueados\n\nTem CERTEZA ABSOLUTA?')) {
+        if (confirm('🚨 ÚLTIMA CHANCE! Realmente deseja apagar tudo?')) {
+          localStorage.clear();
+          soundEffects.gameOver();
+          showNotification('💥 Todos os dados foram apagados!', '#e74c3c');
+          setTimeout(() => {
+            location.reload();
+          }, 2000);
+        }
+      }
+    }
+
+    function checkDailyChallenge() {
+      const today = new Date().toDateString();
+      const lastCheck = localStorage.getItem('lastDailyChallengeCheck');
+      
+      if (lastCheck !== today) {
+        const dayOfWeek = new Date().getDay();
+        const challenge = dailyChallenges.find(c => c.day === dayOfWeek);
+        
+        if (challenge) {
+          gameState.dailyChallenge = {
+            ...challenge,
+            progress: 0,
+            completed: false,
+            date: today
+          };
+          localStorage.setItem('dailyChallenge', JSON.stringify(gameState.dailyChallenge));
+          localStorage.setItem('lastDailyChallengeCheck', today);
+        }
+      } else {
+        const saved = localStorage.getItem('dailyChallenge');
+        if (saved) {
+          gameState.dailyChallenge = JSON.parse(saved);
+        }
+      }
+    }
+
+    function updateDailyChallengeDisplay() {
+      const desc = document.getElementById('dailyChallengeDesc');
+      const timer = document.getElementById('challengeTimer');
+      
+      if (!gameState.dailyChallenge) {
+        desc.textContent = 'Nenhum desafio disponível hoje';
+        timer.textContent = '';
+        return;
+      }
+      
+      if (gameState.dailyChallenge.completed) {
+        desc.textContent = `✅ ${gameState.dailyChallenge.name} - COMPLETO!`;
+        timer.textContent = 'Volte amanhã para um novo desafio!';
+      } else {
+        const progress = gameState.dailyChallenge.progress || 0;
+        const target = gameState.dailyChallenge.target;
+        desc.textContent = `${gameState.dailyChallenge.desc} (${progress}/${target})`;
+        
+        const now = new Date();
+        const tomorrow = new Date(now);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        tomorrow.setHours(0, 0, 0, 0);
+        const timeLeft = tomorrow - now;
+        const hoursLeft = Math.floor(timeLeft / (1000 * 60 * 60));
+        const minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        
+        timer.textContent = `⏰ Expira em: ${hoursLeft}h ${minutesLeft}m | 🎁 Recompensa: ${gameState.dailyChallenge.reward} moedas`;
+      }
+    }
+
+    function updateDailyChallengeProgress(itemType) {
+      if (!gameState.dailyChallenge || gameState.dailyChallenge.completed) return;
+      
+      if (gameState.dailyChallenge.type === 'all' || gameState.dailyChallenge.type === itemType) {
+        gameState.dailyChallenge.progress = (gameState.dailyChallenge.progress || 0) + 1;
+        
+        if (gameState.dailyChallenge.progress >= gameState.dailyChallenge.target) {
+          gameState.dailyChallenge.completed = true;
+          gameState.coins += gameState.dailyChallenge.reward;
+          localStorage.setItem('ecoCoins', gameState.coins);
+          
+          gameState.stats.dailyChallengesCompleted = (gameState.stats.dailyChallengesCompleted || 0) + 1;
+          saveStats();
+          
+          soundEffects.victory();
+          showNotification(`🎉 Desafio Diário Completo! +${gameState.dailyChallenge.reward} moedas!`, '#2ecc71');
+          checkAchievements();
+        }
+        
+        localStorage.setItem('dailyChallenge', JSON.stringify(gameState.dailyChallenge));
+        updateAllDisplays();
+      }
+    }
+
+    function startSpinWheel() {
+      if (gameState.coins < 50) {
+        soundEffects.wrong();
+        showNotification('Você precisa de 50 moedas!', '#e74c3c');
+        return;
+      }
+      
+      gameState.coins -= 50;
+      localStorage.setItem('ecoCoins', gameState.coins);
+      updateAllDisplays();
+      
+      const prizes = [
+        { name: 'Vida Extra', item: 'extraLife' },
+        { name: 'Câmera Lenta', item: 'slowMotion' },
+        { name: 'Escudo', item: 'shieldProtection' },
+        { name: '100 Moedas', coins: 100 },
+        { name: '200 Moedas', coins: 200 },
+        { name: 'Nada', nothing: true }
+      ];
+      
+      const prize = prizes[Math.floor(Math.random() * prizes.length)];
+      
+      soundEffects.powerup();
+      
+      if (prize.item) {
+        gameState.itemCounts[prize.item] = (gameState.itemCounts[prize.item] || 0) + 1;
+        localStorage.setItem('itemCounts', JSON.stringify(gameState.itemCounts));
+        showNotification(`🎡 Você ganhou: ${prize.name}!`, '#9b59b6');
+      } else if (prize.coins) {
+        gameState.coins += prize.coins;
+        localStorage.setItem('ecoCoins', gameState.coins);
+        showNotification(`🎡 Você ganhou: ${prize.coins} Moedas!`, '#f39c12');
+      } else {
+        showNotification('🎡 Que pena! Tente novamente!', '#95a5a6');
+      }
+      
+      updateAllDisplays();
+      renderShop();
+    }
+
+    function startMemoryGame() {
+      showNotification('🧠 Jogo da Memória em breve!', '#3498db');
+      soundEffects.click();
+    }
+
+    function startQuiz() {
+      currentQuizIndex = 0;
+      showQuizQuestion();
+      soundEffects.click();
+    }
+
+    function showQuizQuestion() {
+      if (currentQuizIndex >= quizQuestions.length) {
+        const reward = 500;
+        gameState.coins += reward;
+        localStorage.setItem('ecoCoins', gameState.coins);
+        updateAllDisplays();
+        soundEffects.victory();
+        showNotification(`🎉 Quiz Completo! +${reward} moedas!`, '#2ecc71');
+        showGameScreen('minigamesScreen');
+        return;
+      }
+      
+      const question = quizQuestions[currentQuizIndex];
+      
+      const quizHTML = `
+        <div style="background: rgba(0,0,0,0.9); padding: 30px; border-radius: 20px; max-width: 600px; margin: 20px auto;">
+          <h3 style="color: #fff; margin-bottom: 20px;">❓ Quiz Ambiental</h3>
+          <p style="color: #ddd; font-size: 1.2em; margin-bottom: 20px;">Pergunta ${currentQuizIndex + 1}/${quizQuestions.length}</p>
+          <p style="color: #fff; font-size: 1.3em; margin-bottom: 30px;">${question.question}</p>
+          <div style="display: grid; gap: 10px;">
+            ${question.answers.map((answer, idx) => `
+              <button class="game-btn" style="background: linear-gradient(45deg, #3498db, #2980b9); width: 100%;" onclick="answerQuiz(${idx})">${answer}</button>
+            `).join('')}
+          </div>
+        </div>
+      `;
+      
+      document.getElementById('minigamesScreen').innerHTML = quizHTML;
+      showGameScreen('minigamesScreen');
+    }
+
+    function answerQuiz(answerIndex) {
+      const question = quizQuestions[currentQuizIndex];
+      
+      if (answerIndex === question.correct) {
+        soundEffects.correct();
+        showNotification('✅ Correto!', '#2ecc71');
+        addXP(20);
+      } else {
+        soundEffects.wrong();
+        showNotification('❌ Errado! A resposta correta era: ' + question.answers[question.correct], '#e74c3c');
+      }
+      
+      currentQuizIndex++;
+      setTimeout(() => showQuizQuestion(), 2000);
+    }
+
+    function showNotification(message, color) {
+      const notification = document.createElement('div');
+      notification.className = 'achievement-notification';
+      notification.style.background = color;
+      notification.innerHTML = `
+        <div style="font-size: 1.2em; font-weight: bold;">${message}</div>
+      `;
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.style.animation = 'slideIn 0.5s reverse';
+        setTimeout(() => notification.remove(), 500);
+      }, 3000);
+    }
+
+    let screensaverActive = false;
+    let screensaverX = 0;
+    let screensaverY = 0;
+    let screensaverDx = 0;
+    let screensaverDy = 0;
+    let screensaverColorIndex = 0;
+    let screensaverTrailCounter = 0;
+    let screensaverAnimationId = null;
+
+    const neonColors = [
+      { color: '#ff00ff', name: 'magenta' },
+      { color: '#00ffff', name: 'cyan' },
+      { color: '#00ff00', name: 'lime' },
+      { color: '#ffff00', name: 'yellow' },
+      { color: '#ff0080', name: 'pink' },
+      { color: '#0080ff', name: 'blue' }
+    ];
+
+    function startScreensaver() {
+      const screensaver = document.getElementById('screensaver');
+      const ball = document.getElementById('screensaverBall');
+      
+      screensaver.classList.add('active');
+      screensaverActive = true;
+      
+      screensaverX = Math.random() * (window.innerWidth - 50);
+      screensaverY = Math.random() * (window.innerHeight - 50);
+      screensaverDx = (Math.random() - 0.5) * 6;
+      screensaverDy = (Math.random() - 0.5) * 6;
+      screensaverColorIndex = 0;
+      
+      updateScreensaverTime();
+      updateScreensaverBallColor();
+      animateScreensaver();
+      
+      setInterval(updateScreensaverTime, 1000);
+    }
+
+    function stopScreensaver() {
+      const screensaver = document.getElementById('screensaver');
+      screensaver.classList.remove('active');
+      screensaverActive = false;
+      
+      if (screensaverAnimationId) {
+        cancelAnimationFrame(screensaverAnimationId);
+      }
+      
+      document.querySelectorAll('.screensaver .trail').forEach(trail => trail.remove());
+    }
+
+    function updateScreensaverTime() {
+      if (!screensaverActive) return;
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      document.getElementById('screensaverTime').textContent = `${hours}:${minutes}:${seconds}`;
+    }
+
+    function createScreensaverTrail() {
+      const trail = document.createElement('div');
+      trail.className = 'trail';
+      trail.style.left = screensaverX + 'px';
+      trail.style.top = screensaverY + 'px';
+      trail.style.background = neonColors[screensaverColorIndex].color;
+      trail.style.boxShadow = `0 0 20px ${neonColors[screensaverColorIndex].color}, 0 0 40px ${neonColors[screensaverColorIndex].color}`;
+      document.getElementById('screensaver').appendChild(trail);
+      
+      setTimeout(() => {
+        trail.style.opacity = '0.5';
+        trail.style.transition = 'opacity 0.5s, transform 0.5s';
+        trail.style.transform = 'scale(0.5)';
+      }, 10);
+      
+      setTimeout(() => {
+        trail.remove();
+      }, 500);
+    }
+
+    function animateScreensaver() {
+      if (!screensaverActive) return;
+      
+      const ball = document.getElementById('screensaverBall');
+      
+      screensaverX += screensaverDx;
+      screensaverY += screensaverDy;
+      
+      if (screensaverX + 50 >= window.innerWidth || screensaverX <= 0) {
+        screensaverDx = -screensaverDx;
+        screensaverColorIndex = (screensaverColorIndex + 1) % neonColors.length;
+        updateScreensaverBallColor();
+      }
+      
+      if (screensaverY + 50 >= window.innerHeight || screensaverY <= 0) {
+        screensaverDy = -screensaverDy;
+        screensaverColorIndex = (screensaverColorIndex + 1) % neonColors.length;
+        updateScreensaverBallColor();
+      }
+      
+      ball.style.left = screensaverX + 'px';
+      ball.style.top = screensaverY + 'px';
+      
+      screensaverTrailCounter++;
+      if (screensaverTrailCounter % 3 === 0) {
+        createScreensaverTrail();
+      }
+      
+      screensaverAnimationId = requestAnimationFrame(animateScreensaver);
+    }
+
+    function updateScreensaverBallColor() {
+      const ball = document.getElementById('screensaverBall');
+      const color = neonColors[screensaverColorIndex].color;
+      ball.style.background = color;
+      ball.style.boxShadow = `
+        0 0 20px ${color},
+        0 0 40px ${color},
+        0 0 60px ${color},
+        0 0 80px ${color},
+        0 0 100px ${color},
+        inset 0 0 20px rgba(255, 255, 255, 0.5)
+      `;
+    }
+
+    document.getElementById('btnJogo').addEventListener('click', () => {
+      document.getElementById('modalJogo').classList.add('show');
+      init();
+    });
+
+    document.getElementById('btnPortfolio').addEventListener('click', () => {
+      document.getElementById('modalPortfolio').classList.add('show');
+    });
+
+    document.getElementById('btnScreensaver').addEventListener('click', () => {
+      startScreensaver();
+    });
+
+    document.getElementById('closeJogo').addEventListener('click', () => {
+      document.getElementById('modalJogo').classList.remove('show');
+      clearInterval(timerInterval);
+      clearInterval(fallingInterval);
+      isPaused = false;
+    });
+
+    document.getElementById('closePortfolio').addEventListener('click', () => {
+      document.getElementById('modalPortfolio').classList.remove('show');
+    });
+
+    document.getElementById('screensaver').addEventListener('click', stopScreensaver);
+    document.addEventListener('keydown', (e) => {
+      if (screensaverActive) {
+        stopScreensaver();
+      }
+    });
+
+    document.querySelectorAll('.modal').forEach(modal => {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.classList.remove('show');
+          clearInterval(timerInterval);
+          clearInterval(fallingInterval);
+          isPaused = false;
+        }
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (document.getElementById('gameScreen').classList.contains('active')) {
+        const keys = {
+          '1': 'plastico',
+          '2': 'metal',
+          '3': 'organico',
+          '4': 'vidro',
+          '5': 'papel',
+          '6': 'especial'
+        };
+        
+        if (keys[e.key]) {
+          dropInBin(keys[e.key]);
+        }
+        
+        if (e.code === 'Space') {
+          e.preventDefault();
+          togglePause();
+        }
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (screensaverActive) {
+        if (screensaverX + 50 > window.innerWidth) screensaverX = window.innerWidth - 50;
+        if (screensaverY + 50 > window.innerHeight) screensaverY = window.innerHeight - 50;
+      }
+    });
+
+    window.addEventListener('load', () => {
+      const savedTheme = gameState.ownedThemes[gameState.ownedThemes.length - 1];
+      if (savedTheme) {
+        document.body.className = 'theme-' + savedTheme;
+      }
+    });
+
+    setInterval(() => {
+      if (document.getElementById('menuScreen').classList.contains('active')) {
+        updateDailyChallengeDisplay();
+      }
+    }, 60000);
+  </script>
+</body>
+</html>
